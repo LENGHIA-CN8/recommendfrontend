@@ -1,25 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import InfiniteList from './component/InfiniteList';
+import Navbar from './component/Navbar';
+import { BrowserRouter, Route } from 'react-router-dom';
+import SigninScreen from './screens/SigninScreen';
+import HomeScreen from './screens/HomeScreen';
+import BottomNav from './component/BottomNav';
+import SignupScreen from './screens/SignupScreen';
+import NewsDetails from './screens/NewsDetails';
+import HotNews from './screens/HotNews';
+import LatestNews from './screens/LatestNews';
+import TagsArticle from './screens/TagsArticle';
+import CategoryChoose from './screens/CategoryChoose';
 
-function App() {
+
+
+export default function App() {
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <BrowserRouter>
+    <div className='App'>
+      <Navbar />
+      <BottomNav />
+      {/* <InfiniteList state={state} setState={setState}/> */}
+      <Route exact path='/' component={HomeScreen} ></Route>
+      <Route path="/hot_article" component={HotNews}></Route>
+      <Route path="/tag/:tagsname" component={TagsArticle}></Route>
+      <Route path='/new_article' component={LatestNews}></Route>
+      <Route path="/signin" component={SigninScreen}></Route>
+      <Route path="/signup" component={SignupScreen}></Route>
+      <Route path="/post/:id" component={NewsDetails}></Route>
+      <Route path="/category/favorite" component={CategoryChoose}></Route>
 
-export default App;
+
+    </div>
+    </BrowserRouter>
+  );
+};
+

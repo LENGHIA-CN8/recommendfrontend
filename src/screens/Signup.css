@@ -1,0 +1,77 @@
+.form-control {
+    box-shadow: none;
+    border-color: #ddd;
+}
+.form-control:focus {
+    border-color: #4aba70; 
+}
+.signup-form {
+    width: 350px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+.signup-form form {
+    color: #434343;
+    border-radius: 1px;
+    margin-bottom: 15px;
+    background: #fff;
+    border: 1px solid #f3f3f3;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+.signup-form h4 {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+.signup-form .avatar {
+    color: #fff;
+    margin: 0 auto 30px;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    z-index: 9;
+    background: #4aba70;
+    padding: 15px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.signup-form .avatar i {
+    font-size: 62px;
+}
+.signup-form .form-group {
+    margin-bottom: 20px;
+}
+.signup-form .form-control, .signup-form .btn {
+    min-height: 40px;
+    border-radius: 2px; 
+    transition: all 0.5s;
+}
+.signup-form .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+.signup-form .button {
+    background: rgb(49, 160, 168);
+    border: none;
+    line-height: normal;
+}
+.signup-form .button:hover, .signup-form .btn:focus {
+    background: rgb(37, 125, 131);
+}
+.signup-form .checkbox-inline {
+    float: left;
+}
+.signup-form input[type="checkbox"] {
+    margin-top: 2px;
+}
+.signup-form .forgot-link {
+    float: right;
+}
+.signup-form .small {
+    font-size: 13px;
+}
+.signup-form a {
+    color: rgb(37, 125, 131);
+}

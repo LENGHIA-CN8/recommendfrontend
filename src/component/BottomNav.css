@@ -1,0 +1,15 @@
+.Nav {
+    border-right:0.5px solid;
+    color:white;
+}
+nav.bottom-header li:hover {
+    background-color:rgb(37, 125, 131);
+    border-right:0.5px solid;
+    color:white;
+}
+.nav-active {
+    background-color:red;
+}
+.form-inline {
+    float:right;
+}
