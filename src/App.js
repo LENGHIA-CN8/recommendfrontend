@@ -6,6 +6,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import SigninScreen from './screens/SigninScreen';
 import HomeScreen from './screens/HomeScreen';
 import BottomNav from './component/BottomNav';
+import Footer from './component/Footer';
 import SignupScreen from './screens/SignupScreen';
 import NewsDetails from './screens/NewsDetails';
 import HotNews from './screens/HotNews';
@@ -32,7 +33,6 @@ export default function App() {
       <Route path="/signup" component={SignupScreen}></Route>
       <Route path="/post/:id" component={NewsDetails}></Route>
       <Route path="/category/favorite" component={CategoryChoose}></Route>
-
 
     </div>
     </BrowserRouter>

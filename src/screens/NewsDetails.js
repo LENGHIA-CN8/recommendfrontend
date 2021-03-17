@@ -5,6 +5,8 @@ import ReactHtmlParser from 'react-html-parser';
 import Axios from 'axios';
 import Avatar from 'react-avatar';
 import { getComment,createComment} from '../actions/commentActions'
+import Footer from '../component/Footer';
+
 export default function NewsDetails (props){
     const dispatch = useDispatch();
     const commentlists = useSelector((state) => state.commentlists)
@@ -14,28 +16,40 @@ export default function NewsDetails (props){
     const articleId = props.match.params.id;
     const [content,setContent] = useState({});
     const [commentcontent,setComment] = useState();
-    const {error, comments} = commentlists;
-    const { success } = commentsCreate;
+    let {error, comments} = commentlists;
+    let { success , commentcreated } = commentsCreate;
     useEffect( async () => {
         const { data }  = await Axios.get(`https://recommendationnews1.herokuapp.com/api/products/${articleId}`);
         // console.log(data)
         setContent(data)
       },[])
+    useEffect(() =>{
+        if(success){
+            dispatch(getComment({}));
+        }
+    }
+    ,[dispatch,success]);
     useEffect(() => {
         dispatch(getComment({}))
     },[dispatch])
+
     const handleComment = (e) => {
-        dispatch(createComment({
-            articleId: articleId,
-            userId: userInfo._id,
-            content: commentcontent,
-        }))
+        if(userInfo){
+            dispatch(createComment({
+                articleId: articleId,
+                userId: userInfo._id,
+                content: commentcontent,
+            }))
+        } else {
+            props.history.push('/signin')
+        }
+        
         // props.history.push('/')
     }
     return(
-    <div className='detail'>
-        <section className='topdetail mb-2'>
-        <div className='container-details'>
+    <div className='detail bg-light'>
+        <section className='topdetail mb-2 bg-light'>
+        <div className='container-details bg-light'>
            <div className ='sidebar-1 '>
             <h1 className='title-detail'>{content.name}</h1>
             <p className='description'>{content.brand}</p>
@@ -65,14 +79,14 @@ export default function NewsDetails (props){
        
         </section>
         <section className='middledetail'>
-            <div className='box-comment'>
+            <div className='box-comment w-100'>
                 <div className='left'>
                     <h3>Ý kiến</h3>
                 </div>
-                <div className='input-comment '>
+                <div className='input-comment w-100'>
                     <form >
                     <textarea type='text-area' className='form-control ' placeholder='Ý kiến của bạn' onChange={(e) => setComment(e.target.value)}/>
-                    <input value='Gửi' className='float-right mt-1 btn-info btn' onClick={(e) => handleComment(e)}></input>
+                    <button className='float-right mt-1 btn-info btn' onClick={(e) => handleComment(e)}>Gửi</button>
                     </form>
                 </div>
                 <div className='filter-comment pt-2'>
@@ -85,18 +99,18 @@ export default function NewsDetails (props){
                         <div className='content pt-3 pl-2' style={{font:"400 15px arial"}}> Một bài viết hay ý nghĩa</div>
                     </div>
                     {
-                        comments.map((comment) => (
+                        comments ? comments.map((comment) => (
                             <div className='comment-item d-flex mb-2'>
                                 <div className='avatar pt-1'><Avatar name={comment.user} size="40" round={true}/></div>
                                 <div className='name pt-3 pl-2' style={{color:"blue",font:"400 15px arial"}}><strong>{comment.user}</strong></div>
                                 <div className='content pt-3 pl-2' style={{font:"400 15px arial"}}> {comment.content}</div>
                             </div>
-                        ))
+                        )) : <div> </div>
                     }
                 </div>
             </div>
         </section>   
+        <Footer />
         </div>
-
     );
 };

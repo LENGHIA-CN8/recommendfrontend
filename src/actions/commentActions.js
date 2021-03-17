@@ -8,11 +8,10 @@ export const createComment = (comment) => async (dispatch,getState) => {
         const {data} = await Axios.post(`https://recommendationnews1.herokuapp.com/api/comments/update`,comment, {
             headers: { Authorization: `Bearer ${userInfo.token}`
         } })
-        dispatch({ type: 'COMMENT_LIST_SUCCESS', payload: data });
-
+        dispatch({ type: 'COMMENT_CREATE_SUCCESS', payload: data });
 
     } catch (err){
-        dispatch({ type: 'COMMENT_LIST_FAIL', payload: err.message });
+        dispatch({ type: 'COMMENT_CREATE_FAIL', payload: err.message });
     }
 }
 export const getComment = () => async(dispatch) => {

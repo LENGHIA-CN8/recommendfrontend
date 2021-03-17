@@ -22,7 +22,7 @@ article{
 .detail{
     margin-top:-15px;
     border:solid 1px rgb(211, 209, 209);
-    background-color:rgb(252, 247, 233);
+    background-color:rgb(236, 236, 236);
 }
 .fck_detail{
     font: 400 18px arial;
@@ -66,13 +66,14 @@ article{
 }
 .middledetail{
     display: inline-block;
-    width: 70%;
+    width: 100%;
     float:left;
 }
 .box-comment{
     text-align:left;
     padding-top:1rem;
     padding-left:5%;
+    padding-right:10%;
     font-family: "Times New Roman", Times, serif;
 }
 .left > h3 {

@@ -1,0 +1,10 @@
+.footer {
+    margin-top:40%;
+    border-top:1px solid black;
+}
+@media (max-width:700px){
+    .footer {
+        margin-top:100%;
+        }
+
+}
