@@ -84,7 +84,7 @@ export default function InfiniteList(props) {
     <div className='container-fluid'>
       <div id='list' className='card-columns'>
       { console.log(props.state)}
-      { props.state.map((article) => <Cards key={article.articleId} article={article} />) }
+      { props.state.map((article) => <Cards key={article.articleID} article={article} />) }
       </div>
     </div>
     

@@ -52,6 +52,7 @@ export default function NewsDetails (props){
 
     <div>
     <div className='detail bg-light'>
+        {console.log(content)}
         <section className='topdetail mb-2 bg-light'>
         <div className='container-details bg-light'>
            <div className ='sidebar-1 '>
