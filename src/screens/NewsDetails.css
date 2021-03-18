@@ -65,7 +65,12 @@ article{
     font-size: 18px;
 }
 .middledetail{
+    /* box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box; */
     display: inline-block;
+    /* margin-left:20%;
+    margin-right:20%; */
     width: 100%;
     float:left;
 }
@@ -74,6 +79,8 @@ article{
     padding-top:1rem;
     padding-left:5%;
     padding-right:10%;
+    padding-bottom:1rem;
+    /* border-bottom:1px solid rgb(240, 51, 51); */
     font-family: "Times New Roman", Times, serif;
 }
 .left > h3 {

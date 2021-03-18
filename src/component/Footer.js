@@ -6,8 +6,8 @@ import './Footer.css'
 export default function Footer(props){
     return (
     <div>
-        <footer class="text-center text-white " >
-  <div class="container footer ">
+        <div class="text-center text-white " >
+  <div class="footer">
     <div class="mb-4 mt-10">
       <a
         class="btn btn-link btn-floating btn-lg text-dark m-1"
@@ -54,7 +54,7 @@ export default function Footer(props){
   <div class="text-center text-dark p-3" >
     <h6>© All right Reversed.</h6>
   </div>
-</footer>
+</div>
 </div>
 
     );

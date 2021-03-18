@@ -55,7 +55,7 @@ export default function InfiniteList(props) {
   const getData = async (load) => {
     if (load) {
       // https://dog.ceo/api/breeds/image/random/15
-      let l = 'https://recommendationnews1.herokuapp.com/api/products' + props.link
+      let l = '/api/products' + props.link
       console.log(props.link)
       if (props.link === '/' && userInfo) {
         const { data }  = await Axios.get(l,{'id': userInfo._id});
@@ -84,7 +84,7 @@ export default function InfiniteList(props) {
     <div className='container-fluid'>
       <div id='list' className='card-columns'>
       { console.log(props.state)}
-      { props.state.map((article) => <Cards key={article.id} article={article} />) }
+      { props.state.map((article) => <Cards key={article.articleId} article={article} />) }
       </div>
     </div>
     

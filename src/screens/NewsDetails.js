@@ -26,6 +26,7 @@ export default function NewsDetails (props){
     useEffect(() =>{
         if(success){
             dispatch(getComment({}));
+            dispatch({type:'COMMENT_CREATE_RESET'})
         }
     }
     ,[dispatch,success]);
@@ -34,6 +35,7 @@ export default function NewsDetails (props){
     },[dispatch])
 
     const handleComment = (e) => {
+        e.preventDefault();
         if(userInfo){
             dispatch(createComment({
                 articleId: articleId,
@@ -47,6 +49,8 @@ export default function NewsDetails (props){
         // props.history.push('/')
     }
     return(
+
+    <div>
     <div className='detail bg-light'>
         <section className='topdetail mb-2 bg-light'>
         <div className='container-details bg-light'>
@@ -68,7 +72,7 @@ export default function NewsDetails (props){
        </div>
        
         </section>
-        <section className='middledetail'>
+        <div className='middledetail'>
             <div className='box-comment w-100'>
                 <div className='left'>
                     <h3>Ý kiến</h3>
@@ -99,8 +103,10 @@ export default function NewsDetails (props){
                     }
                 </div>
             </div>
-        </section>   
-        <Footer />
+        </div> 
+        <Footer />  
         </div>
+        </div>
+
     );
 };
