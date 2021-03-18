@@ -13,7 +13,7 @@ export default function NewsDetails (props){
     const commentsCreate = useSelector((state) => state.commentsCreate)
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo } = userSignin;
-    const articleId = props.match.params.id;
+    const articleID = props.match.params.id;
     const [content,setContent] = useState({});
     const [commentcontent,setComment] = useState();
     let {error, comments} = commentlists;
