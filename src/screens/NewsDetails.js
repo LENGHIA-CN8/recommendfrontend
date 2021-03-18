@@ -19,7 +19,7 @@ export default function NewsDetails (props){
     let {error, comments} = commentlists;
     let { success , commentcreated } = commentsCreate;
     useEffect( async () => {
-        const { data }  = await Axios.get(`/article/${articleID}`);
+        const { data }  = await Axios.get(`/articles/${articleID}`);
         // console.log(data)
         setContent(data)
       },[])
@@ -38,7 +38,7 @@ export default function NewsDetails (props){
         e.preventDefault();
         if(userInfo){
             dispatch(createComment({
-                articleId: articleId,
+                articleId: articleID,
                 userId: userInfo._id,
                 content: commentcontent,
             }))

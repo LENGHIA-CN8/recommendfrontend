@@ -8,7 +8,7 @@ export default function Cards(props) {
   return (
     <div key={article.articleID} className="card " style={{textAlign:"left"}}>
     <Link to={`/post/${article.articleID}`}>
-    {/* <img className="card-img-top" style={{padding:"0"}} src={article.image} alt="Card image cap"/> */}
+    <img className="card-img-top" style={{padding:"0"}} src={article.thumbnail} alt="Card image cap"/>
     </Link>
     {/* <Link to={`/post/${article.articleId}`} className='text-decoration-none'> */}
     <Link to={`/post/${article.articleID}`}>

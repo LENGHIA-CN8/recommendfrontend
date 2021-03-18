@@ -3,11 +3,12 @@ import Axios from 'axios';
 export const signin = (email, password) => async (dispatch) => {
     try {
         console.log(email)
-        const { data } = await Axios.post('https://recommendationnews1.herokuapp.com/api/users/signin', { email, password });
+        const { data } = await Axios.post('/api-auth/login/', { username : email, password });
         console.log(data)
         dispatch({ type: "USER_SIGNIN_SUCCESS", payload: data });
         localStorage.setItem('userInfo', JSON.stringify(data));
     } catch (error) {
+        console.log(error)
         dispatch({
             type: "USER_SIGNIN_FAIL",
             payload:
