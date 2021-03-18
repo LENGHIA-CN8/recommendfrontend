@@ -19,7 +19,7 @@ export default function NewsDetails (props){
     let {error, comments} = commentlists;
     let { success , commentcreated } = commentsCreate;
     useEffect( async () => {
-        const { data }  = await Axios.get(`/article/${articleId}`);
+        const { data }  = await Axios.get(`/article/${articleID}`);
         // console.log(data)
         setContent(data)
       },[])
