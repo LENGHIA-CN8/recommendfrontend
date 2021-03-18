@@ -59,10 +59,10 @@ export default function InfiniteList(props) {
       console.log(props.link)
       if (props.link === '/' && userInfo) {
         const { data }  = await Axios.get(l,{'id': userInfo._id});
-        props.setState([...props.state, ...data]);
+        props.setState([...props.state, ...data.results]);
       } else {
         const { data }  = await Axios.get(l);
-        props.setState([...props.state, ...data]);
+        props.setState([...props.state, ...data.results]);
       }
 
       
