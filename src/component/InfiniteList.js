@@ -55,7 +55,7 @@ export default function InfiniteList(props) {
   const getData = async (load) => {
     if (load) {
       // https://dog.ceo/api/breeds/image/random/15
-      let l = '/api/products' + props.link
+      let l = '/articles' + props.link
       console.log(props.link)
       if (props.link === '/' && userInfo) {
         const { data }  = await Axios.get(l,{'id': userInfo._id});
