@@ -19,7 +19,7 @@ export default function NewsDetails (props){
     let {error, comments} = commentlists;
     let { success , commentcreated } = commentsCreate;
     useEffect( async () => {
-        const { data }  = await Axios.get(`https://recommendationnews1.herokuapp.com/api/products/${articleId}`);
+        const { data }  = await Axios.get(`/article/${articleId}`);
         // console.log(data)
         setContent(data)
       },[])
@@ -55,10 +55,10 @@ export default function NewsDetails (props){
         <section className='topdetail mb-2 bg-light'>
         <div className='container-details bg-light'>
            <div className ='sidebar-1 '>
-            <h1 className='title-detail'>{content.name}</h1>
-            <p className='description'>{content.brand}</p>
+            <h1 className='title-detail'>{content.title}</h1>
+            <p className='description'>{content.sapo}</p>
             
-             {ReactHtmlParser(content.description)}
+             {ReactHtmlParser(content.displayContent)}
            </div>
            <div className = 'recommend'>
             <div className = 'sidebar2-title text-left mb-2 ml-0'>
