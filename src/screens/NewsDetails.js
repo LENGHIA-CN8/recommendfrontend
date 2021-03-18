@@ -53,16 +53,6 @@ export default function NewsDetails (props){
            <div className ='sidebar-1 '>
             <h1 className='title-detail'>{content.name}</h1>
             <p className='description'>{content.brand}</p>
-            {/* <div className ='header-content'> 
-            <h1 className="title-detail">Messi bắt đầu chấp nhận Griezmann ?</h1>
-            </div>
-            <p className='description'>Để toả sáng, mọi cầu thủ tấn công của Barca đều cần kết nối được với Lionel Messi. Một siêu sao như Antoine Griezmann cũng không phải ngoại lệ.</p>
-            <article className='content-detail'>
-                <img className='img-article w-100' src='https://i1-thethao.vnecdn.net/2021/02/07/griezmann-messi-granada-afp-jp-5382-8697-1612671204.jpg?w=680&h=0&q=100&dpr=2&fit=crop&s=-sC0vRLq2Ob45_wFYyw4FA '></img>
-                <p className='paragraph'>Điều Barca sợ nhất trong mọi hoàn cảnh là Lionel Messi... cúi gằm mặt. Đó thường là phản ứng khi thất bại, hoặc là không hài lòng với chuyện gì đó. Còn khi anh ngẩng cao đầu, đặc biệt khi chủ động muốn tìm sự kết nối, đó là tín hiệu tốt.</p>
-                <p className='paragraph'>Trận thắng ngược Granada 5-3 ở tứ kết Cúp Nhà Vua là minh chứng, khi Messi chủ động "ngẩng mặt" tìm đồng đội Griezmann để chuyền. Trận này, Messi chuyền 15 lần cho chân sút người Pháp, nhiều hơn bất cứ đồng đội nào trên sân, trong đó có pha kiến tạo rút ngắn tỷ số xuống 1-2. Pedri, người chơi tiền vệ con thoi lệch trái, trên lý thuyết, đá gần Messi hơn, nhận được 11 đường chuyền, bằng với Riqui Puig - tiền vệ trung tâm vào thay Sergio Busquets ở phút 76.</p>
-                <p className='author-mail strong'>Anh Duy</p>
-            </article> */}
             
              {ReactHtmlParser(content.description)}
            </div>

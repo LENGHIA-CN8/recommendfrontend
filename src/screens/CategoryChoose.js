@@ -11,6 +11,8 @@ import './Signup.css'
 export default function CategoryChoose(props) {
     const [categorylist,setCategory] = useState([]);
     const [catergory_favorite,setFavorite] = useState(new Map());
+    const [object_category,setObject] = useState({
+    })
     const redirect = props.location.search
     ? props.location.search.split('=')[1]
     : '/';
@@ -23,9 +25,17 @@ export default function CategoryChoose(props) {
       const isChecked = e.target.checked;
       setFavorite(catergory_favorite.set(item,isChecked))
       console.log(catergory_favorite)
-
+      catergory_favorite.forEach((value,key,map) => {
+        if(value){
+          setObject({category :{ ...object_category.category,[key] : 1 },latent:[]})
+        } else {
+          setObject({category :{ ...object_category.category,[key] : 0 },latent:[]})
+        }
+      })
     }
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
+      
+      const { data }  = await Axios.put('https://recommendationnews1.herokuapp.com/api/users/favorite_category',{object_category,id:userInfo._id});
       e.preventDefault();
       props.history.push(redirect);
 
@@ -35,6 +45,10 @@ export default function CategoryChoose(props) {
       // console.log(data)
       setCategory([...data])
     },[])
+    useEffect(()=> {
+      categorylist.map( (cate)=> setFavorite(catergory_favorite.set(cate.name,false)))
+
+    },[categorylist])
     // useEffect(() => {
     //   if (userInfo) {
     //     props.history.push(redirect);
@@ -46,15 +60,17 @@ export default function CategoryChoose(props) {
   return (
     <div className="signup-form" >    
     <form className="form" onSubmit={submitHandler}>
+        { console.log(JSON.stringify(object_category)) }
         <h4>
           Bạn quan tâm về ?
         </h4>
         <div className='py-2 '>
         {
-          categorylist.map ( category => <div className="d-inline-block w-50 text-left" style={{width: '100px'}}><input type='checkbox' className='m-2 p-0' value={category.name} onChange={handleChange} checked={catergory_favorite.get(category.name)}/>{category.name}</div>    )
+          categorylist.map ( category => {
+          return <div className="d-inline-block w-50 text-left" style={{width: '100px'}}><input type='checkbox' className='m-2 p-0' value={category.name} onChange={handleChange} checked={catergory_favorite.get(category.name)}/>{category.name}</div> 
+        }   )
         }
         </div>
-        <div>{catergory_favorite}</div>
         <input type="submit" className="button btn-primary btn-block btn-lg " value="Hoàn Thành" />              
     </form>			
 </div>
