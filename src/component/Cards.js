@@ -11,10 +11,12 @@ export default function Cards(props) {
     {/* <img className="card-img-top" style={{padding:"0"}} src={article.image} alt="Card image cap"/> */}
     </Link>
     {/* <Link to={`/post/${article.articleId}`} className='text-decoration-none'> */}
+    <Link to={`/post/${article.articleId}`}>
     <div className="card-body ">
       {/* <h5 className="card-title " style={{color:"rgb(11, 137, 141)"}}>{article.name}</h5> */}
       <p className="card-text " style={{color:"grey"}}><small>{article.articleId}...</small></p>
     </div>
+    </Link>
     {/* </Link> */}
   </div>
   );
