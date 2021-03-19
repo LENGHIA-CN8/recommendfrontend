@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { signin } from '../actions/userActions';
 // import MessageBox from '../components/MessageBox';
 import './Signin.css'
+import DjangoCSRFToken from 'django-react-csrftoken'
 
 export default function SigninScreen(props) {
   const [email, setEmail] = useState('');
@@ -29,6 +30,7 @@ export default function SigninScreen(props) {
   return (
     <div className="login-form">    
     <form className='form' onSubmit={submitHandler}>
+      <DjangoCSRFToken/>
     	<h4 className="modal-title">ĐĂNG NHẬP</h4>
         <div className="form-group">
             <input type="text" className="form-control" placeholder="Username" required="required" onChange={(e) => setEmail(e.target.value)}/>
