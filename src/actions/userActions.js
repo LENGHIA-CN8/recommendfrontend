@@ -13,17 +13,37 @@ export const signin = (email, password) => async (dispatch) => {
         //   headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":"5FqV6hwWsPkt6Q4lmNsUqaRcxF7V8BVqENF6eVtxlv4agZt6OhntdiQNGu7vRMlk" }
         // });
         // console.log(data)
-        axios.get('/api-auth/login/?next=/', formData, { headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":"5FqV6hwWsPkt6Q4lmNsUqaRcxF7V8BVqENF6eVtxlv4agZt6OhntdiQNGu7vRMlk" }})
-        .then(async (response) => {                  // var csrftokenCookie = Cookies.get('csrftoken');
+        async function getcookie()  {                  // var csrftokenCookie = Cookies.get('csrftoken');
+        var csrftokenCookie = Cookies.get('csrftoken');
+        const data  = await Axios.post('/api-auth/login/?next=/', formData,{
+          headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie}
+        });
+        return data;
+
+        
+
+        }
+        axios.get('/api-auth/login/?next=/', formData, { headers: {  "Content-Type": "multipart/form-data" }})
+        .then( (response) => {
+        
+        getcookie().then(async function(result){
           var csrftokenCookie = Cookies.get('csrftoken');
           const  { data }   = await Axios.get('/users/', formData,{
-           headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken": csrftokenCookie }
+          headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken": csrftokenCookie }
          });
           var person = data.results.find((x) => x.username === email)
           console.log(person)
           dispatch({ type: "USER_SIGNIN_SUCCESS", payload: person });
           localStorage.setItem('userInfo', JSON.stringify(person));
+        })
 
+        //   const  { data }   = await Axios.get('/users/', formData,{
+        //    headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken": csrftokenCookie }
+        //  });
+          // var person = data.results.find((x) => x.username === email)
+          // console.log(person)
+          // dispatch({ type: "USER_SIGNIN_SUCCESS", payload: person });
+          // localStorage.setItem('userInfo', JSON.stringify(person));
 
         }).catch( function(error) {
           console.log(error);
