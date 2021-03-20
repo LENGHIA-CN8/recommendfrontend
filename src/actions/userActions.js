@@ -1,12 +1,35 @@
+import axios from 'axios';
 import Axios from 'axios';
+import Cookies  from 'js-cookie';
 
 export const signin = (email, password) => async (dispatch) => {
     try {
-        console.log(email)
-        const { data } = await Axios.post('/api-auth/login/', { username : email, password : password  });
-        console.log(data)
-        dispatch({ type: "USER_SIGNIN_SUCCESS", payload: data });
-        localStorage.setItem('userInfo', JSON.stringify(data));
+        let formData = new FormData();
+        formData.append('username', email);
+        formData.append('password',password);
+        // var csrftokenCookie = Cookies.get('csrftoken');
+        // console.log(csrftokenCookie);
+        // const data  = await Axios.get('http://localhost:8000/api-auth/login/?next=/', formData,{
+        //   headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":"5FqV6hwWsPkt6Q4lmNsUqaRcxF7V8BVqENF6eVtxlv4agZt6OhntdiQNGu7vRMlk" }
+        // });
+        // console.log(data)
+        axios.get('/api-auth/login/?next=/', formData, { headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":"5FqV6hwWsPkt6Q4lmNsUqaRcxF7V8BVqENF6eVtxlv4agZt6OhntdiQNGu7vRMlk" }})
+        .then(async (response) => {                  // var csrftokenCookie = Cookies.get('csrftoken');
+          var csrftokenCookie = Cookies.get('csrftoken');
+          const  { data }   = await Axios.get('/users/', formData,{
+           headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken": csrftokenCookie }
+         });
+          var person = data.results.find((x) => x.username === email)
+          console.log(person)
+          dispatch({ type: "USER_SIGNIN_SUCCESS", payload: person });
+          localStorage.setItem('userInfo', JSON.stringify(person));
+
+
+        }).catch( function(error) {
+          console.log(error);
+        });
+        // dispatch({ type: "USER_SIGNIN_SUCCESS", payload: data });
+        // localStorage.setItem('userInfo', JSON.stringify(data));
     } catch (error) {
         console.log(error)
         dispatch({
@@ -26,6 +49,7 @@ export const signout = () => (dispatch) => {
 export const register = (name, email, password) => async (dispatch) => {
     dispatch({ type: "USER_REGISTER_REQUEST", payload: { email, password } });
     try {
+
       const { data } = await Axios.post('https://recommendationnews1.herokuapp.com/api/users/register', {
         name,
         email,

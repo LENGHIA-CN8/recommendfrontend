@@ -38,7 +38,7 @@ export default function Navbar(props) {
         <ul class="nav navbar-nav navbar-right flex-row">
         { userInfo ? (
           <div className = "login pl-2 d-flex flex-column">
-          <Link to="/profile" className='font-weight-bold text-decoration-none'><small> {status } {userInfo.name} </small></Link>
+          <Link to="/profile" className='font-weight-bold text-decoration-none'><small> {status } {userInfo.username} </small></Link>
           <Link to="#signout" onClick={signoutHandler} style = {{color : "red"}} className='text-decoration-none'>
             <small>Thoát</small>  
           </Link>

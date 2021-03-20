@@ -13,8 +13,8 @@ export default function Cards(props) {
     {/* <Link to={`/post/${article.articleId}`} className='text-decoration-none'> */}
     <Link to={`/post/${article.articleID}`}>
     <div className="card-body ">
-      {/* <h5 className="card-title " style={{color:"rgb(11, 137, 141)"}}>{article.name}</h5> */}
-      <p className="card-text " style={{color:"grey"}}><small>{article.articleID}...</small></p>
+      <h5 className="card-title " style={{color:"rgb(11, 137, 141)"}}>{article.title}</h5>
+      <p className="card-text " style={{color:"grey"}}><small>{article.sapo}...</small></p>
     </div>
     </Link>
     {/* </Link> */}
