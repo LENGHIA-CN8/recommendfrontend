@@ -20,7 +20,7 @@ export default function SignupScreen(props) {
     : '/category/favorite';
 
     const userRegister = useSelector((state) => state.userRegister);
-    const { userInfo, loading, error } = userRegister;
+    const { userInfo, loading, error ,success} = userRegister;
 
     const dispatch = useDispatch();
     const submitHandler = (e) => {
@@ -37,10 +37,10 @@ export default function SignupScreen(props) {
       setCategory([...data])
     },[])
     useEffect(() => {
-      if (userInfo) {
+      if (success) {
         props.history.push(redirect);
       }
-    }, [props.history, redirect, userInfo]);
+    }, [props.history, redirect, success]);
     // useEffect(() =>{
 
     // })

@@ -69,15 +69,41 @@ export const signout = () => (dispatch) => {
 export const register = (name, email, password) => async (dispatch) => {
     dispatch({ type: "USER_REGISTER_REQUEST", payload: { email, password } });
     try {
-
-      const { data } = await Axios.post('https://recommendationnews1.herokuapp.com/api/users/register', {
-        name,
-        email,
-        password,
+      let formData = new FormData();
+        formData.append('username', name);
+        formData.append('password1',password);
+        formData.append('password2',password);
+        // var csrftokenCookie = Cookies.get('csrftoken');
+        // console.log(csrftokenCookie);
+        // const data  = await Axios.get('http://localhost:8000/api-auth/login/?next=/', formData,{
+        //   headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":"5FqV6hwWsPkt6Q4lmNsUqaRcxF7V8BVqENF6eVtxlv4agZt6OhntdiQNGu7vRMlk" }
+        // });
+        // console.log(data)
+        async function getcookie()  {                  // var csrftokenCookie = Cookies.get('csrftoken');
+        var csrftokenCookie = Cookies.get('csrftoken');
+        const data  = await Axios.post('/accounts/signup/', formData,{
+          headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie}
+        });
+        return data;
+        }
+        axios.get('/accounts/signup/', formData, { headers: {  "Content-Type": "multipart/form-data" }})
+        .then( (response) => {
+        
+        getcookie().then(async function(result){
+                dispatch({ type: "USER_REGISTER_SUCCESS", payload: result });
+        })
+      }).catch( function(error) {
+        console.log(error);
       });
-      dispatch({ type: "USER_REGISTER_SUCCESS", payload: data });
-      dispatch({ type: "USER_SIGNIN_SUCCESS", payload: data });
-      localStorage.setItem('userInfo', JSON.stringify(data));
+
+      // const { data } = await Axios.post('https://recommendationnews1.herokuapp.com/api/users/register', {
+      //   name,
+      //   email,
+      //   password,
+      // });
+      // dispatch({ type: "USER_REGISTER_SUCCESS", payload: data });
+      // dispatch({ type: "USER_SIGNIN_SUCCESS", payload: data });
+      // localStorage.setItem('userInfo', JSON.stringify(data));
     } catch (error) {
       dispatch({
         type: 'USER_REGISTER_FAIL',
