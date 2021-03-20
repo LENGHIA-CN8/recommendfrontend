@@ -38,9 +38,12 @@ export default function NewsDetails (props){
         e.preventDefault();
         if(userInfo){
             dispatch(createComment({
-                articleId: articleID,
-                userId: userInfo._id,
+                CommentID: 1,
+                articleID,
+                userId: 1006903598,
                 content: commentcontent,
+                time:12,
+
             }))
         } else {
             props.history.push('/signin')
