@@ -13,7 +13,6 @@ export const createComment = (comment) => async (dispatch,getState) => {
         formData.append('userID',comment.userId);
         formData.append('content',comment.content);
         formData.append('time',comment.time);
-        // formData.append('csrfmiddlewaretoken':csrftokenCookie);
 
         const {data} = await Axios.post(`/user_comment/`,formData, {
             headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie }

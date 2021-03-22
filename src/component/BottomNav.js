@@ -15,12 +15,13 @@ export default function BottomNav() {
     }
   };
   useEffect( async () => {
-    const { data }  = await Axios.get('https://recommendationnews1.herokuapp.com/api/category');
+    const { data }  = await Axios.get('/category/get_top_level_category/');
     // console.log(data)
     setIdlist([...data])
   },[])
   return (
     <div>
+      {console.log(idlist)}
       <nav className="navbar py-1 px-1 mb-3 bottom-header bg-info list-unstyled ">
         <ul className='navbar-nav d-flex flex-row '>
         <NavLink exact to="/" className="Nav float-left text-decoration-none" activeClassName="nav-active">
