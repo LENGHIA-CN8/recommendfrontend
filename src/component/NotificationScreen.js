@@ -6,7 +6,7 @@ export default function NotificationScreen(props) {
   return (
     <div>
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Bạn chưa đăng nhập!</strong> Hãy đăng nhập để nhận tin gợi ý
+        <strong>Bạn chưa đăng nhập!</strong> Hãy <Link to='/signin' className='text-decoration-none'>đăng nhập</Link> để nhận tin gợi ý
         <button
           type="button"
           class="close"
