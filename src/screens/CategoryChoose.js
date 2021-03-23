@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { register } from '../actions/userActions';
 import Axios from 'axios';
+import Cookies  from 'js-cookie';
+
 
 // import { signin } from '../actions/userActions';
 // import MessageBox from '../components/MessageBox';
@@ -19,7 +21,7 @@ export default function CategoryChoose(props) {
 
     const userRegister = useSelector((state) => state.userRegister);
     const { userInfo, loading, error } = userRegister;
-
+    
     const handleChange = (e) => {
       const item = e.target.value;
       const isChecked = e.target.checked;
@@ -34,16 +36,19 @@ export default function CategoryChoose(props) {
       })
     }
     const submitHandler = async (e) => {
-      
-      const { data }  = await Axios.put('https://recommendationnews1.herokuapp.com/api/users/favorite_category',{object_category,id:userInfo._id});
+      var csrftokenCookie = Cookies.get('csrftoken');
+      const { data }  = await Axios.put('https://recommendationnews1.herokuapp.com/api/users/favorite_category',{object_category,id:userInfo._id},{
+        headers: { "X-CSRFToken":csrftokenCookie}
+      });
       e.preventDefault();
       props.history.push(redirect);
 
     };
     useEffect( async () => {
-      const { data }  = await Axios.get('https://recommendationnews1.herokuapp.com/api/category');
-      // console.log(data)
-      setCategory([...data])
+      const { data }  = await Axios.get('/category/get_top_level_category/');
+      console.log(data)
+      setCategory([...data.results])
+      // setCategory([...testarr]);
     },[])
     useEffect(()=> {
       categorylist.map( (cate)=> setFavorite(catergory_favorite.set(cate.name,false)))
@@ -66,9 +71,12 @@ export default function CategoryChoose(props) {
         </h4>
         <div className='py-2 '>
         {
-          categorylist.map ( category => {
-          return <div className="d-inline-block w-50 text-left" style={{width: '100px'}}><input type='checkbox' className='m-2 p-0' value={category.name} onChange={handleChange} checked={catergory_favorite.get(category.name)}/>{category.name}</div> 
-        }   )
+          categorylist.map ( item => {
+          if(item.category.localeCompare("video") ){
+            return <div className="d-inline-block w-50 text-left" style={{width: '100px'}}><input type='checkbox' className='m-2 p-0' value={item.categoryID} onChange={handleChange} checked={catergory_favorite.get(item.categoryID)}/>{item.category}</div> 
+          }
+         
+        })
         }
         </div>
         <input type="submit" className="button btn-primary btn-block btn-lg " value="Hoàn Thành" />              

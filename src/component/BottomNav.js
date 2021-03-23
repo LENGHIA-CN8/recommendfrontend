@@ -6,6 +6,41 @@ import Axios from 'axios'
 export default function BottomNav() {
   const [isopen, setopenSearch] = useState(false);
   const [idlist,setIdlist] = useState([]);
+  let test = [{
+    "categoryID": 2017,
+    "category": "thể thao",
+    "level": 0
+},
+{
+    "categoryID": 2019,
+    "category": "kinh doanh",
+    "level": 0
+},
+{
+    "categoryID": 2021,
+    "category": "vnexpress",
+    "level": 0
+},
+{
+    "categoryID": 2029,
+    "category": "du lịch",
+    "level": 0
+},
+{
+    "categoryID": 2044,
+    "category": "số hóa",
+    "level": 0
+},
+{
+    "categoryID": 2053,
+    "category": "giải trí",
+    "level": 0
+},
+{
+    "categoryID": 2062,
+    "category": "sức khỏe",
+    "level": 0
+}]
   const openSearch = (e) => {
     e.preventDefault();
     if (isopen) {
@@ -16,8 +51,9 @@ export default function BottomNav() {
   };
   useEffect( async () => {
     const { data }  = await Axios.get('/category/get_top_level_category/');
-    // console.log(data)
-    setIdlist([...data])
+    console.log(data)
+    setIdlist([...data.results])
+    // setIdlist([...test])
   },[])
   return (
     <div>
@@ -44,9 +80,9 @@ export default function BottomNav() {
           <li className="px-2 py-2 border-white ">MỚI</li>
         </NavLink>
         {
-          idlist.map((category => 
-          <NavLink exact to = {`/${category.name}`} className="text-decoration-none">
-            <button type='button' className='button_id btn btn-info mx-1 d-none d-md-block' value={category.id} ><small> #{category.name} </small></button>
+          idlist.map((item => 
+          <NavLink exact to = {`/${item.name}`} className="text-decoration-none">
+            <button type='button' className='button_id btn btn-info mx-1 d-none d-md-block' value={item.categoryId} ><small> #{item.category} </small></button>
           </NavLink> ))
           
         }
