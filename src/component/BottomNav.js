@@ -23,7 +23,7 @@ function BottomNav(props) {
   }
   const queryHandler = (e) => {
     e.preventDefault();
-    console.log(props.history)
+    // console.log(props.history)
     props.history.push('/search?query=' + querystring)
   }
   useEffect( async () => {
