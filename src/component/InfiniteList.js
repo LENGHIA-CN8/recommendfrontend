@@ -3,18 +3,46 @@ import Cards from './Cards';
 import "./Cards.css"
 import Axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios'
 
 
 export default function InfiniteList(props) {
   const [loadMore, setLoadMore] = useState(true);
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, error } = userSignin;
+  let [cards,setCards] = useState([]);
+  let [count,setCount] = useState(-2);
+  let [numbercardperLoad,setLoad] = useState(0);
+  const numberperLoad = 5;
 
   useEffect(() => {
     getData(loadMore);
-    // console.log('hello')
     setLoadMore(false);
   }, [loadMore]);
+  useEffect(() => {
+    let l = '/articles' + props.link
+      console.log(props.link)
+      if (props.link === '/' && userInfo ) {
+        console.log('hello')
+        // const { data }  = await Axios.get(l,{'id': userInfo._id});
+        // props.setState([...props.state, ...data]);
+        axios.get(l).then(async (response) => {
+          const {data} = response
+          props.setState([...props.state, ...data.results]);
+          let a = data.results.slice(0,5);
+          setCards([...a])
+
+        })
+      } else {
+        axios.get(l).then((response) => {
+          const {data} = response
+          props.setState([...props.state, ...data.results]);
+          let a = data.results.slice(0,5);
+          setCards([...a])
+
+        })
+      }
+  },[])
 
   useEffect(() => {
     const list = document.getElementById('list')
@@ -32,50 +60,32 @@ export default function InfiniteList(props) {
       window.addEventListener('scroll', () => {
         
         if (window.scrollY + window.innerHeight + 1 >= list.clientHeight + list.offsetTop) {
-          // console.log(window.scrollY,window.innerHeight,list.clientHeight,list.offsetTop)
-          // console.log(window.scrollY+window.innerHeight,list.clientHeight+list.offsetTop)
-          // console.log(loadMore)
           setLoadMore(true);
-          // console.log(loadMore)
         }
       });
     }
   }, []);
 
-  // useEffect(() => {
-  //   const list = document.getElementById('list');
-
-  //   if(list.clientHeight <= window.innerHeight && list.clientHeight) {
-  //     setLoadMore(true);
-  //     console.log(loadMore)
-  //   }
-  // }, [props.state]);
 
 
-  const getData = async (load) => {
-    if (load) {
-      // https://dog.ceo/api/breeds/image/random/15
-      let l = '/articles' + props.link
-      console.log(props.link)
-      if (props.link === '/' && userInfo) {
-        const { data }  = await Axios.get(l,{'id': userInfo._id});
-        props.setState([...props.state, ...data.results]);
-      } else {
-        const { data }  = await Axios.get(l);
-        props.setState([...props.state, ...data.results]);
-      }
-
-      
-      // fetch(l)
-      //   .then(res => {
-      //     return !res.ok 
-      //     ? res.json().then(e => Promise.reject(e)) 
-      //     : res.json();
-      //   })
-      //   .then(res => {
-      //     // console.log(res)
-      //     props.setState([...props.state, ...res]);
-      //   });
+  const getData = (load) => {
+    if(cards.length < props.state.length ) {
+    setCount(++count)
+    console.log('count',count)
+    // if(cards.length >= props.state.length - 5 ){
+    //   console.log('loadmore');
+    //   HandleFetch();
+    // }
+    if (cards.length + numberperLoad > props.state.length){
+      let current = props.state.slice(cards.length,props.state.length+1)
+      setCards([...cards,...current])
+    } else if (load) {
+      let offset = count * numberperLoad;
+      let current = props.state.slice(offset , offset+numberperLoad);
+      console.log('current',current)
+      setCards([...cards,...current])
+    }
+    
 
     }
   };
@@ -83,10 +93,13 @@ export default function InfiniteList(props) {
   return (
     <div className='container-fluid'>
       <div id='list' className='card-columns'>
-      { console.log(props.state)}
-      { props.state.map((article) => <Cards key={article.articleID} article={article} />) }
+      { console.log('props state',props.state)}
+      { console.log('cards',cards) }
+      { typeof cards[0] !== "undefined" && cards.map((article) => <Cards key={article.id} article={article} />) }
+      
       </div>
     </div>
+    
     
   );
 };

@@ -13,6 +13,7 @@ import HotNews from './screens/HotNews';
 import LatestNews from './screens/LatestNews';
 import TagsArticle from './screens/TagsArticle';
 import CategoryChoose from './screens/CategoryChoose';
+import SearchScreen from './screens/SearchScreen';
 
 
 
@@ -28,6 +29,7 @@ export default function App() {
       <Route exact path='/' component={HomeScreen} ></Route>
       <Route path="/hot_article" component={HotNews}></Route>
       <Route path="/tag/:tagsname" component={TagsArticle}></Route>
+      <Route path="/search" component={SearchScreen}></Route>
       <Route path='/new_article' component={LatestNews}></Route>
       <Route path="/signin" component={SigninScreen}></Route>
       <Route path="/signup" component={SignupScreen}></Route>

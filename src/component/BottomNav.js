@@ -1,46 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { BsSearch } from "react-icons/bs";
+import { BsFillPersonDashFill, BsSearch } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
+import { withRouter} from 'react-router-dom';
 import "./BottomNav.css";
 import Axios from 'axios'
-export default function BottomNav() {
+function BottomNav(props) {
   const [isopen, setopenSearch] = useState(false);
   const [idlist,setIdlist] = useState([]);
-  let test = [{
-    "categoryID": 2017,
-    "category": "thể thao",
-    "level": 0
-},
-{
-    "categoryID": 2019,
-    "category": "kinh doanh",
-    "level": 0
-},
-{
-    "categoryID": 2021,
-    "category": "vnexpress",
-    "level": 0
-},
-{
-    "categoryID": 2029,
-    "category": "du lịch",
-    "level": 0
-},
-{
-    "categoryID": 2044,
-    "category": "số hóa",
-    "level": 0
-},
-{
-    "categoryID": 2053,
-    "category": "giải trí",
-    "level": 0
-},
-{
-    "categoryID": 2062,
-    "category": "sức khỏe",
-    "level": 0
-}]
+  const [querystring,setqueryString] = useState();
+  
   const openSearch = (e) => {
     e.preventDefault();
     if (isopen) {
@@ -49,10 +17,20 @@ export default function BottomNav() {
       setopenSearch(true);
     }
   };
+  const querystringHandler = (findquery) => {
+    setqueryString(findquery);
+    console.log(querystring)    
+  }
+  const queryHandler = (e) => {
+    e.preventDefault();
+    console.log(props.history)
+    props.history.push('/search?query=' + querystring)
+  }
   useEffect( async () => {
     const { data }  = await Axios.get('/category/get_top_level_category/');
     console.log(data)
     setIdlist([...data.results])
+    // console.log(test)
     // setIdlist([...test])
   },[])
   return (
@@ -89,15 +67,16 @@ export default function BottomNav() {
         </ul>
         <div className='float-right'>
           <form class="form-inline float-right">
-            <input
+          <input
               class="form-control mr-sm-2 d-none d-md-block"
               type="search"
               placeholder="Tìm kiếm"
               aria-label="Search"
+              onChange={(e) => {querystringHandler(e.target.value)}}
             />
             <button
               class="btn btn-outline-light my-0 d-none d-md-block "
-              type="submit"
+              onClick={(e) => {queryHandler(e)}}
             >
               <BsSearch />
             </button>
@@ -123,3 +102,4 @@ export default function BottomNav() {
     </div>
   );
 }
+export default withRouter(BottomNav)
