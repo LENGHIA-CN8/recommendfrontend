@@ -28,6 +28,7 @@ export const signin = (email, password) => async (dispatch) => {
         
         getcookie().then(async function(result){
           var csrftokenCookie = Cookies.get('csrftoken');
+          console.log(csrftokenCookie)
           const  { data }   = await Axios.get('/users/', formData,{
           headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken": csrftokenCookie }
          });
