@@ -61,7 +61,8 @@ export default function InfiniteList(props) {
         axios.post(l,formData,{
           headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie}
         }).then( (response) => {
-          const {data} = response
+          const { data } = response
+          console.log(JSON.parse(response))
           props.setState([...props.state, ...data.articleID]);
           let arr1 = data.slice(0,numberperLoad)
           getarticlefromID(arr1).then((response) => setCards([...response]))
