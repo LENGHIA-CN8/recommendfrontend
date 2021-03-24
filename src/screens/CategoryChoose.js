@@ -22,48 +22,7 @@ export default function CategoryChoose(props) {
     const userRegister = useSelector((state) => state.userRegister);
     const { userInfo, loading, error } = userRegister;
     
-    const testarr = [{
-      "count": 7,
-      "next": null,
-      "previous": null,
-      "results": [
-          {
-              "categoryID": 2017,
-              "category": "thể thao",
-              "level": 0
-          },
-          {
-              "categoryID": 2019,
-              "category": "kinh doanh",
-              "level": 0
-          },
-          {
-              "categoryID": 2021,
-              "category": "vnexpress",
-              "level": 0
-          },
-          {
-              "categoryID": 2029,
-              "category": "du lịch",
-              "level": 0
-          },
-          {
-              "categoryID": 2044,
-              "category": "số hóa",
-              "level": 0
-          },
-          {
-              "categoryID": 2053,
-              "category": "giải trí",
-              "level": 0
-          },
-          {
-              "categoryID": 2062,
-              "category": "sức khỏe",
-              "level": 0
-          }
-      ]
-  }]
+    
     const handleChange = (e) => {
       const item = e.target.value;
       const isChecked = e.target.checked;
@@ -87,10 +46,52 @@ export default function CategoryChoose(props) {
 
     };
     useEffect( async () => {
-      // const { data }  = await Axios.get('/category/get_top_level_category/');
-      // console.log(data)
-      // setCategory([...data.results])
-      setCategory([...testarr]);
+    //   const testarr = {
+    //     "count": 7,
+    //     "next": null,
+    //     "previous": null,
+    //     "results": [
+    //         {
+    //             "categoryID": 2017,
+    //             "category": "thể thao",
+    //             "level": 0
+    //         },
+    //         {
+    //             "categoryID": 2019,
+    //             "category": "kinh doanh",
+    //             "level": 0
+    //         },
+    //         {
+    //             "categoryID": 2021,
+    //             "category": "vnexpress",
+    //             "level": 0
+    //         },
+    //         {
+    //             "categoryID": 2029,
+    //             "category": "du lịch",
+    //             "level": 0
+    //         },
+    //         {
+    //             "categoryID": 2044,
+    //             "category": "số hóa",
+    //             "level": 0
+    //         },
+    //         {
+    //             "categoryID": 2053,
+    //             "category": "giải trí",
+    //             "level": 0
+    //         },
+    //         {
+    //             "categoryID": 2062,
+    //             "category": "sức khỏe",
+    //             "level": 0
+    //         }
+    //     ]
+    // }
+      const { data }  = await Axios.get('/category/get_top_level_category/');
+      console.log(data)
+      setCategory([...data.results])
+      // setCategory([...testarr.results]);
     },[])
     useEffect(()=> {
       categorylist.map( (cate)=> setFavorite(catergory_favorite.set(cate.name,false)))
@@ -112,14 +113,14 @@ export default function CategoryChoose(props) {
           Bạn quan tâm về ?
         </h4>
         <div className='py-2 '>
-        {/* {
+        {
           categorylist.length > 0 ? categorylist.map ( item => {
           if(item.category.localeCompare("video") ){
             return <div className="d-inline-block w-50 text-left" style={{width: '100px'}}><input type='checkbox' className='m-2 p-0' value={item.categoryID} onChange={handleChange} checked={catergory_favorite.get(item.categoryID)}/>{item.category}</div> 
           }
          
         }) : <div></div>
-        } */}
+        }
         {
         console.log(categorylist)
       }
