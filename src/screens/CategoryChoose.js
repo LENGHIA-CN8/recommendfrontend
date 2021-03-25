@@ -13,8 +13,8 @@ export default function CategoryChoose(props) {
     ? props.location.search.split('=')[1]
     : '/';
 
-    const userRegister = useSelector((state) => state.userRegister);
-    const { userInfo, loading, error } = userRegister;
+    const userSignin = useSelector((state) => state.userSignin);
+    const { userInfo, error } = userSignin;
     
     
     const handleChange = (e) => {
@@ -35,15 +35,15 @@ export default function CategoryChoose(props) {
       console.log(arr);
     }
     const submitHandler = async (e) => {
-
       e.preventDefault();
       let formData = new FormData();
+      formData.append('userID',userInfo.userID)
       formData.append('categoryIDs', object_category.category);
       var csrftokenCookie = Cookies.get('csrftoken');
       const { data }  = await Axios.post('/user_category/post_user_category/',formData,{
         headers: { "X-CSRFToken":csrftokenCookie}
       });
-      props.history.push(redirect);
+      // props.history.push(redirect);
 
     };
     useEffect( async () => {
@@ -66,6 +66,7 @@ export default function CategoryChoose(props) {
   return (
     <div className="signup-form" >    
     <form className="form" >
+        { console.log(userInfo) }
         { console.log(typeof(object_category.category)) }
         <h4>
           Bạn quan tâm về ?

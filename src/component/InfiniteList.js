@@ -46,7 +46,7 @@ export default function InfiniteList(props) {
         axios.post(l,formData, {
           headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken": csrftokenCookie }
          } ).then( (response) => {
-          console.log(response.data.articleID)
+          // console.log(response.data.articleID)
           props.setState([...props.state, ...response.data.articleID]);
           let arr1 = response.data.articleID.slice(0,numberperLoad)
           getarticlefromID(arr1).then((response) => setCards([...response]))
@@ -64,13 +64,14 @@ export default function InfiniteList(props) {
         });
  
       } else if(props.link === '/search') {
+        console.log(props.querystr)
         l = l + '/';
         let formData = new FormData();
         formData.append('str', props.querystr);
         axios.post(l,formData,{
           headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie}
         }).then( (response) => {
-          console.log(response.data.articleID)
+          // console.log(response.data.articleID)
           props.setState([...props.state, ...response.data.articleID]);
           let arr1 = response.data.articleID.slice(0,numberperLoad)
           getarticlefromID(arr1).then((response) => setCards([...response]))
@@ -166,7 +167,6 @@ export default function InfiniteList(props) {
   return (
     <div className='container-fluid'>
       <div id='list' className='card-columns'>
-      {console.log(loadMore)}
       { console.log('props state',props.state)}
       { console.log('cards',cards) }
       { typeof cards[0] !== "undefined" && cards.map((article) => <Cards key={article.id} article={article} />) }
