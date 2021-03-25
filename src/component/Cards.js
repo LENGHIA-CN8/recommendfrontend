@@ -6,7 +6,8 @@ import './Cards.css'
 export default function Cards(props) {
   const { article } = props;
   return (
-    <div key={article.articleID} className="card " style={{textAlign:"left"}}>
+    <div className='col-12 col-md-6 col-lg-3'>
+      <div key={article.articleID} className="card " style={{textAlign:"left"}}>
     <Link to={`/post/${article.articleID}`}>
     <img className="card-img-top" style={{padding:"0"}} src={article.thumbnail} alt="Card image cap"/>
     </Link>
@@ -19,5 +20,7 @@ export default function Cards(props) {
     </Link>
     {/* </Link> */}
   </div>
+    </div>
+    
   );
 }
