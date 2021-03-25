@@ -8,7 +8,48 @@ function BottomNav(props) {
   const [isopen, setopenSearch] = useState(false);
   const [idlist,setIdlist] = useState([]);
   const [querystring,setqueryString] = useState();
-  
+    const testarr = {
+        "count": 7,
+        "next": null,
+        "previous": null,
+        "results": [
+            {
+                "categoryID": 2017,
+                "category": "thể thao",
+                "level": 0
+            },
+            {
+                "categoryID": 2019,
+                "category": "kinh doanh",
+                "level": 0
+            },
+            {
+                "categoryID": 2021,
+                "category": "vnexpress",
+                "level": 0
+            },
+            {
+                "categoryID": 2029,
+                "category": "du lịch",
+                "level": 0
+            },
+            {
+                "categoryID": 2044,
+                "category": "số hóa",
+                "level": 0
+            },
+            {
+                "categoryID": 2053,
+                "category": "giải trí",
+                "level": 0
+            },
+            {
+                "categoryID": 2062,
+                "category": "sức khỏe",
+                "level": 0
+            }
+        ]
+    }
   const openSearch = (e) => {
     e.preventDefault();
     if (isopen) {
@@ -27,11 +68,11 @@ function BottomNav(props) {
     props.history.push('/search?query=' + querystring)
   }
   useEffect( async () => {
-    const { data }  = await Axios.get('/category/get_top_level_category/');
-    console.log(data)
-    setIdlist([...data.results])
+    // const { data }  = await Axios.get('/category/get_top_level_category/');
+    // console.log(data)
+    // setIdlist([...data.results])
     // console.log(test)
-    // setIdlist([...test])
+    setIdlist([...testarr.results])
   },[])
   return (
     <div>
@@ -59,8 +100,8 @@ function BottomNav(props) {
         </NavLink>
         {
           idlist.map((item => 
-          <NavLink exact to = {`/${item.categoryId}`} className="text-decoration-none">
-            <button type='button' className='button_id btn btn-info mx-1 d-none d-md-block' value={item.categoryId} ><small> #{item.category} </small></button>
+          <NavLink exact to = {`/category/${item.categoryID}`} className="text-decoration-none">
+            <button type='button' className='button_id btn btn-info mx-1 d-none d-md-block' value={item.categoryID} ><small> #{item.category} </small></button>
           </NavLink> ))
           
         }

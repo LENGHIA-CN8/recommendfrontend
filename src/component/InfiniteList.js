@@ -20,14 +20,14 @@ export default function InfiniteList(props) {
   const getarticlefromID = async (arr1) => {
     let arr = []
     for (let i=0; i < arr1.length; i++) {
-      let  response  = await axios.get(`/articles/${arr1[i]}`)
+      let  response  = await axios.get(`/articles/${arr1[i]}/`)
       arr.push(response.data)
     }
     return arr
   }
 
   useEffect(() => {
-    if (props.link === '/' && userInfo){
+    if ((props.link === '/' && userInfo) || (props.link === '/category/')){
       getData1(loadMore)
     } else {
       getData(loadMore);
@@ -64,6 +64,7 @@ export default function InfiniteList(props) {
         });
  
       } else if(props.link === '/search') {
+        l = l + '/';
         let formData = new FormData();
         formData.append('str', props.querystr);
         axios.post(l,formData,{
@@ -76,7 +77,20 @@ export default function InfiniteList(props) {
         }).catch(function (error) {
           console.log(error);
         });
-      } else {
+      } else if (props.link === '/category/'){
+        l = props.link + props.categoryID
+        axios.get(l,{
+          headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie}
+        }).then( (response) => {
+          console.log(response.data.articleID)
+          props.setState([...props.state, ...response.data.articleID]);
+          let arr1 = response.data.articleID.slice(0,numberperLoad)
+          getarticlefromID(arr1).then((response) => setCards([...response]))
+        }).catch(function (error) {
+          console.log(error);
+        });
+      } 
+      else {
         axios.get(l).then((response) => {
           const {data} = response
           props.setState([...props.state, ...data.results]);
