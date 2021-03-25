@@ -8,7 +8,6 @@ export default function SearchScreen (props){
     const querystr = props.location.search.split('=')[1]
     return (
         <div className='Search'>
-            <div>hello</div>
             {console.log(querystr)}
             <InfiniteList link={props.location.pathname} state ={state} setState={setState} querystr={querystr}></InfiniteList>
             {/* {userInfo ? <InfiniteList link={props.location.pathname} state ={state} setState={setState}></InfiniteList> : <NotificationScreen></NotificationScreen>} */}

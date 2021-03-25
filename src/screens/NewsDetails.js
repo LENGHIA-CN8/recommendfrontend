@@ -38,9 +38,9 @@ export default function NewsDetails (props){
         e.preventDefault();
         if(userInfo){
             dispatch(createComment({
-                CommentID: 1,
+                CommentID: 2,
                 articleID,
-                userId: 1006903598,
+                userId: userInfo.userID,
                 content: commentcontent,
                 time:12,
 
@@ -91,11 +91,6 @@ export default function NewsDetails (props){
                     <h3 className='font-weight-bold h6 pt-2 pb-2 d-inline-block'>Mới nhất</h3>
                 </div>
                 <div className='box-comment pt-0 mb-2 pl-0'>
-                    <div className='comment-item d-flex mb-2'>
-                        <div className='avatar pt-1'><Avatar name="Le Nghia" size="40" round={true}/></div>
-                        <div className='name pt-3 pl-2' style={{color:"blue",font:"400 15px arial"}}><strong>Le Nghia</strong></div>
-                        <div className='content pt-3 pl-2' style={{font:"400 15px arial"}}> Một bài viết hay ý nghĩa</div>
-                    </div>
                     {
                         comments.results ? comments.results.map((comment) => (
                             <div className='comment-item d-flex mb-2'>

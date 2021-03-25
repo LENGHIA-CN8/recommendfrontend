@@ -16,7 +16,7 @@ export const createComment = (comment) => async (dispatch,getState) => {
         formData.append('content',comment.content);
         formData.append('time',comment.time);
 
-        const {data} = await Axios.post(`/user_comment/`,formData, {
+        const {data} = await Axios.post(`/user_comment/post_comment`,formData, {
             headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie }
     })
         dispatch({ type: 'COMMENT_CREATE_SUCCESS', payload: data });
