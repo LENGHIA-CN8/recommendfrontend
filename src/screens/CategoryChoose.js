@@ -26,6 +26,7 @@ export default function CategoryChoose(props) {
       catergory_favorite.forEach((value,key,map) => {
         if(value){
           arr.push(key)
+          // let myArray = JSON.stringify(arr)
           // setObject({category :{ ...object_category.category,[key] : 1 },latent:[]})
           setObject({'category': arr})
         } else {
@@ -43,7 +44,9 @@ export default function CategoryChoose(props) {
       const { data }  = await Axios.post('/user_category/post_user_category/',formData,{
         headers: { "X-CSRFToken":csrftokenCookie}
       });
-      // props.history.push(redirect);
+      if (data.status_post === 'ok'){
+        props.history.push(redirect);
+      }
 
     };
     useEffect( async () => {
