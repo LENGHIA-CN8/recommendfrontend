@@ -17,7 +17,7 @@ export default function SignupScreen(props) {
     const [catergory_favorite,setFavorite] = useState();
     const redirect = props.location.search
     ? props.location.search.split('=')[1]
-    : '/category/favorite';
+    : '/signin';
 
     const userRegister = useSelector((state) => state.userRegister);
     const { userInfo, loading, error ,success} = userRegister;
@@ -30,17 +30,19 @@ export default function SignupScreen(props) {
       } else {
         dispatch(register(name, email, password));
       }
+      props.history.push(redirect);
+
     };
     useEffect( async () => {
       const { data }  = await Axios.get('https://recommendationnews1.herokuapp.com/api/category');
       // console.log(data)
       setCategory([...data])
     },[])
-    useEffect(() => {
-      if (success) {
-        props.history.push(redirect);
-      }
-    }, [props.history, redirect, success]);
+    // useEffect(() => {
+    //   if (success) {
+    //     props.history.push(redirect);
+    //   }
+    // }, [props.history, redirect, success]);
     // useEffect(() =>{
 
     // })

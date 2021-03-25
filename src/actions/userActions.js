@@ -32,10 +32,10 @@ export const signin = (email, password) => async (dispatch) => {
           const  { data }   = await Axios.post('/users_crawl/get_userID_and_status/', formData,{
           headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken": csrftokenCookie }
          });
-          var person = data.results.find((x) => x.username === email)
-          console.log(person)
-          dispatch({ type: "USER_SIGNIN_SUCCESS", payload: person });
-          localStorage.setItem('userInfo', JSON.stringify(person));
+          // var person = data.results.find((x) => x.username === email)
+          // console.log(person)
+          dispatch({ type: "USER_SIGNIN_SUCCESS", payload: data });
+          localStorage.setItem('userInfo', JSON.stringify(data));
         })
 
         //   const  { data }   = await Axios.get('/users/', formData,{

@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 export default function NotificationScreen(props) {
   return (
     <div>
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Bạn chưa đăng nhập!</strong> Hãy <Link to='/signin' className='text-decoration-none'>đăng nhập</Link> để nhận tin gợi ý
+      <div class="alert alert-warning alert-dismissible fade show  " style={{margin:"0 30% 0 30%"}}role="alert">
+        <strong>Bạn chưa đăng nhập!</strong> Hãy <Link to='/signin' className='text-decoration-none'>đăng nhập</Link> để nhận tin gợi ý cá nhân hoá
         <button
           type="button"
           class="close"
