@@ -38,14 +38,21 @@ export default function InfiniteList(props) {
     let l = '/articles' + props.link
       console.log(l)
       if (props.link === '/' && userInfo) {
-        console.log('hello')
+        let formData = new FormData();
+        formData.append('userID',userInfo.userID)
+        console.log('inside personel')
+        l = l + 'get_personal_article/'
         // const { data }  = await Axios.get(l,{'id': userInfo._id});
         // props.setState([...props.state, ...data]);
-        axios.get(l,{"userID":userInfo.userID}).then( (response) => {
-          const {data} = response
-          props.setState([...props.state, ...data]);
-          let arr1 = data.slice(0,numberperLoad)
+        axios.post(l,formData).then( (response) => {
+          console.log(response.data.articleID)
+          props.setState([...props.state, ...response.data.articleID]);
+          let arr1 = response.data.articleID.slice(0,numberperLoad)
           getarticlefromID(arr1).then((response) => setCards([...response]))
+          // const {data} = response
+          // props.setState([...props.state, ...data]);
+          // let arr1 = data.slice(0,numberperLoad)
+          // getarticlefromID(arr1).then((response) => setCards([...response]))
 
           // props.setState([...props.state, ...data]);
           // let a = data.slice(0,numberperLoad);
@@ -61,10 +68,9 @@ export default function InfiniteList(props) {
         axios.post(l,formData,{
           headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie}
         }).then( (response) => {
-          const { data } = response
-          console.log(JSON.parse(response))
-          props.setState([...props.state, ...data.articleID]);
-          let arr1 = data.slice(0,numberperLoad)
+          console.log(response.data.articleID)
+          props.setState([...props.state, ...response.data.articleID]);
+          let arr1 = response.data.articleID.slice(0,numberperLoad)
           getarticlefromID(arr1).then((response) => setCards([...response]))
         }).catch(function (error) {
           console.log(error);
@@ -75,7 +81,6 @@ export default function InfiniteList(props) {
           props.setState([...props.state, ...data.results]);
           let a = data.results.slice(0,numberperLoad);
           setCards([...a])
-
         })
       }
   },[])
@@ -96,6 +101,10 @@ export default function InfiniteList(props) {
       window.addEventListener('scroll', () => {
         
         if (window.scrollY + window.innerHeight + 1 >= list.clientHeight + list.offsetTop) {
+          console.log(window.scrollY)
+          console.log(window.innerHeight)
+          console.log(list.clientHeight)
+          console.log(list.offsetTop)
           setLoadMore(true);
         }
       });

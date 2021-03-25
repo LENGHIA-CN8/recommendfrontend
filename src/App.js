@@ -14,6 +14,7 @@ import LatestNews from './screens/LatestNews';
 import TagsArticle from './screens/TagsArticle';
 import CategoryChoose from './screens/CategoryChoose';
 import SearchScreen from './screens/SearchScreen';
+import ArticleCategory from './screens/ArticleCategory';
 
 
 
@@ -35,6 +36,7 @@ export default function App() {
       <Route path="/signup" component={SignupScreen}></Route>
       <Route path="/post/:id" component={NewsDetails}></Route>
       <Route path="/category/favorite" component={CategoryChoose}></Route>
+      <Route path="/category/:id" component={ArticleCategory}></Route>
 
     </div>
     </BrowserRouter>

@@ -23,9 +23,12 @@ export const createComment = (comment) => async (dispatch,getState) => {
         dispatch({ type: 'COMMENT_CREATE_FAIL', payload: err.message });
     }
 }
-export const getComment = () => async(dispatch) => {
+export const getComment = (articleID) => async(dispatch) => {
+    let formData = new FormData();
+    formData.append('articleID',articleID);
+
     try {
-        const { data } = await Axios.get(`https://recommendationnews1.herokuapp.com/api/comments`);
+        const { data } = await Axios.post(`/user_comment/get_comment_by_articleID/`,formData);
         dispatch({ type: 'COMMENT_LIST_SUCCESS', payload: data });
       } catch (error) {
         dispatch({ type: 'COMMENT_LIST_FAIL', payload: error.message });

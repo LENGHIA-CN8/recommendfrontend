@@ -25,7 +25,8 @@ export default function NewsDetails (props){
       },[])
     useEffect(() =>{
         if(success){
-            dispatch(getComment({}));
+            // dispatch(getComment({}));
+            dispatch(getComment(articleID))
             dispatch({type:'COMMENT_CREATE_RESET'})
         }
     }

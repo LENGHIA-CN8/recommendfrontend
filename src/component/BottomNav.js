@@ -59,7 +59,7 @@ function BottomNav(props) {
         </NavLink>
         {
           idlist.map((item => 
-          <NavLink exact to = {`/${item.name}`} className="text-decoration-none">
+          <NavLink exact to = {`/${item.categoryId}`} className="text-decoration-none">
             <button type='button' className='button_id btn btn-info mx-1 d-none d-md-block' value={item.categoryId} ><small> #{item.category} </small></button>
           </NavLink> ))
           

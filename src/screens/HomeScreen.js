@@ -12,8 +12,8 @@ export default function HomeScreen (props){
     return (
         <div className='Home'>
             {console.log(props.location)}
-            <InfiniteList link={props.location.pathname} state ={state} setState={setState}></InfiniteList>
-            {/* {userInfo ? <InfiniteList link={props.location.pathname} state ={state} setState={setState}></InfiniteList> : <NotificationScreen></NotificationScreen>} */}
+            {/* <InfiniteList link={props.location.pathname} state ={state} setState={setState}></InfiniteList> */}
+            {userInfo ? <InfiniteList link={props.location.pathname} state ={state} setState={setState}></InfiniteList> : <NotificationScreen></NotificationScreen>}
         </div>
     )
 }
