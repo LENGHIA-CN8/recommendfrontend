@@ -1,12 +1,14 @@
 import Axios from 'axios';
 import Cookies  from 'js-cookie';
 
+const csrftokenCookie = Cookies.get('csrftoken');
 export const createComment = (comment) => async (dispatch,getState) => {
+
     const {
         userSignin: { userInfo },
       } = getState();
     try {
-        var csrftokenCookie = Cookies.get('csrftoken');
+        
         let formData = new FormData();
         formData.append('commentID', comment.CommentID);
         formData.append('articleID',comment.articleID);
@@ -28,7 +30,9 @@ export const getComment = (articleID) => async(dispatch) => {
     formData.append('articleID',articleID);
 
     try {
-        const { data } = await Axios.post(`/user_comment/get_comment_by_articleID/`,formData);
+        const { data } = await Axios.post(`/user_comment/get_comment_by_articleID/`,formData,{
+            headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie }
+    });
         dispatch({ type: 'COMMENT_LIST_SUCCESS', payload: data });
       } catch (error) {
         dispatch({ type: 'COMMENT_LIST_FAIL', payload: error.message });

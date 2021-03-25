@@ -11,13 +11,13 @@ import CSRFToken from '../component/CSRFToken';
 export default function SigninScreen(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  let redirect = ''
 
-  const redirect = props.location.search
-    ? props.location.search.split('=')[1]
-    : '/';
+  
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, error } = userSignin;
+  
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
@@ -26,9 +26,15 @@ export default function SigninScreen(props) {
   };
   useEffect(() => {
     if (userInfo) {
+        
+    if(userInfo.status == 1 ){
+      redirect = '/'
+    } else {
+      redirect = '/category/favorite'
+    }
       props.history.push(redirect);
     }
-  }, [props.history, redirect, userInfo]);
+  }, [props.history,redirect, userInfo]);
   return (
     <div className="login-form">    
     <form className='form' onSubmit={submitHandler}>

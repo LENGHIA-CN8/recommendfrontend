@@ -29,7 +29,7 @@ export const signin = (email, password) => async (dispatch) => {
         getcookie().then(async function(result){
           var csrftokenCookie = Cookies.get('csrftoken');
           console.log(csrftokenCookie)
-          const  { data }   = await Axios.get('/users/', formData,{
+          const  { data }   = await Axios.post('/users_crawl/get_userID_and_status/', formData,{
           headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken": csrftokenCookie }
          });
           var person = data.results.find((x) => x.username === email)
@@ -65,7 +65,7 @@ export const signin = (email, password) => async (dispatch) => {
 export const signout = () => (dispatch) => {
     localStorage.removeItem('userInfo');
     dispatch({ type: 'USER_SIGNOUT' });
-    document.location.href = '/signin';
+    document.location.href = '/';
   };
 export const register = (name, email, password) => async (dispatch) => {
     dispatch({ type: "USER_REGISTER_REQUEST", payload: { email, password } });

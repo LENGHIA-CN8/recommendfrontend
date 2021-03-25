@@ -34,7 +34,7 @@ export default function Navbar(props) {
   return (
     <div>
     <nav class="navbar navbar-light bg-light ">
-        <Link to="/" class="navbar-brand">RecommendationNews</Link>
+        <Link to="/" class="navbar-brand">Hệ thống gợi ý tin tức cá nhân hoá PNRec</Link>
         <ul class="nav navbar-nav navbar-right flex-row">
         { userInfo ? (
           <div className = "login pl-2 d-flex flex-column">

@@ -20,7 +20,6 @@ export default function NewsDetails (props){
     let { success , commentcreated } = commentsCreate;
     useEffect( async () => {
         const { data }  = await Axios.get(`/articles/${articleID}`);
-        // console.log(data)
         setContent(data)
       },[])
     useEffect(() =>{
@@ -32,7 +31,7 @@ export default function NewsDetails (props){
     }
     ,[dispatch,success]);
     useEffect(() => {
-        dispatch(getComment({}))
+        dispatch(getComment(articleID))
     },[dispatch])
 
     const handleComment = (e) => {
@@ -56,7 +55,7 @@ export default function NewsDetails (props){
 
     <div>
     <div className='detail bg-light'>
-        {console.log(content)}
+        {/* {console.log(content)} */}
         <section className='topdetail mb-2 bg-light'>
         <div className='container-details bg-light'>
            <div className ='sidebar-1 '>
@@ -98,10 +97,10 @@ export default function NewsDetails (props){
                         <div className='content pt-3 pl-2' style={{font:"400 15px arial"}}> Một bài viết hay ý nghĩa</div>
                     </div>
                     {
-                        comments ? comments.map((comment) => (
+                        comments.results ? comments.results.map((comment) => (
                             <div className='comment-item d-flex mb-2'>
                                 <div className='avatar pt-1'><Avatar name={comment.user} size="40" round={true}/></div>
-                                <div className='name pt-3 pl-2' style={{color:"blue",font:"400 15px arial"}}><strong>{comment.user}</strong></div>
+                                <div className='name pt-3 pl-2' style={{color:"blue",font:"400 15px arial"}}><strong>{comment.userID}</strong></div>
                                 <div className='content pt-3 pl-2' style={{font:"400 15px arial"}}> {comment.content}</div>
                             </div>
                         )) : <div> </div>
