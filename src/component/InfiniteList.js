@@ -13,7 +13,7 @@ export default function InfiniteList(props) {
   const { userInfo, error } = userSignin;
   let [cards,setCards] = useState([]);
   let [count,setCount] = useState(-2);
-  const numberperLoad = 5;
+  const numberperLoad = 10;
   const csrftokenCookie = Cookies.get('csrftoken');
 
 
@@ -32,6 +32,7 @@ export default function InfiniteList(props) {
     } else {
       getData(loadMore);
     }
+    setLoadMore(false);
   }, [loadMore]);
 
   useEffect(() => {
@@ -39,12 +40,12 @@ export default function InfiniteList(props) {
       console.log(l)
       if (props.link === '/' && userInfo) {
         let formData = new FormData();
-        formData.append('userID',userInfo.userID)
+        formData.append('id',userInfo.id)
         console.log('inside personel')
         l = l + 'get_personal_article/'
-        // const { data }  = await Axios.get(l,{'id': userInfo._id});
-        // props.setState([...props.state, ...data]);
-        axios.post(l,formData).then( (response) => {
+        axios.post(l,formData, {
+          headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken": csrftokenCookie }
+         } ).then( (response) => {
           console.log(response.data.articleID)
           props.setState([...props.state, ...response.data.articleID]);
           let arr1 = response.data.articleID.slice(0,numberperLoad)
@@ -101,10 +102,6 @@ export default function InfiniteList(props) {
       window.addEventListener('scroll', () => {
         
         if (window.scrollY + window.innerHeight + 1 >= list.clientHeight + list.offsetTop) {
-          console.log(window.scrollY)
-          console.log(window.innerHeight)
-          console.log(list.clientHeight)
-          console.log(list.offsetTop)
           setLoadMore(true);
         }
       });
@@ -155,6 +152,7 @@ export default function InfiniteList(props) {
   return (
     <div className='container-fluid'>
       <div id='list' className='card-columns'>
+      {console.log(loadMore)}
       { console.log('props state',props.state)}
       { console.log('cards',cards) }
       { typeof cards[0] !== "undefined" && cards.map((article) => <Cards key={article.id} article={article} />) }
