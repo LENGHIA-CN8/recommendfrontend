@@ -16,8 +16,8 @@ export default function NewsDetails (props){
     const articleID = props.match.params.id;
     const [content,setContent] = useState({});
     const [commentcontent,setComment] = useState();
-    let {error, comments} = commentlists;
-    let { success , commentcreated } = commentsCreate;
+    let { comments } = commentlists;
+    let { success } = commentsCreate;
     useEffect( async () => {
         const { data }  = await Axios.get(`/articles/${articleID}`);
         setContent(data)
@@ -46,10 +46,9 @@ export default function NewsDetails (props){
 
             }))
         } else {
-            props.history.push('/signin')
+            alert("Bạn phải đăng nhập để sử dụng tính năng này !!")
+            // props.history.push('/signin')
         }
-        
-        // props.history.push('/')
     }
     return(
 

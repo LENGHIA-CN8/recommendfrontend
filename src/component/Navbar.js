@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { BsSearch } from "react-icons/bs";
 import { BsPerson } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from '../actions/userActions';

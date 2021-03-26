@@ -176,7 +176,7 @@ export default function InfiniteList(props) {
                 columnsCountBreakPoints={{350: 1, 750: 2, 900: 4}}
             >
                 <Masonry>
-                { console.log('props state',props.state)}
+      { console.log('props state',props.state)}
       { console.log('cards',cards) }
       { typeof cards[0] !== "undefined" && cards.map((article) => <Cards key={article.id} article={article} />) }
                 </Masonry>

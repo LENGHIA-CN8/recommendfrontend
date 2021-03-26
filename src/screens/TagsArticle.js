@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Cards from '../component/Cards';
 import InfiniteList from '../component/InfiniteList';
 
 export default function TagsArticle (props){

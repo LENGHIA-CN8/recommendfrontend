@@ -10,7 +10,6 @@ export default function SearchScreen (props){
         <div className='Search'>
             {console.log(querystr)}
             <InfiniteList link={props.location.pathname} state ={state} setState={setState} querystr={querystr}></InfiniteList>
-            {/* {userInfo ? <InfiniteList link={props.location.pathname} state ={state} setState={setState}></InfiniteList> : <NotificationScreen></NotificationScreen>} */}
         </div>
     )
 }
