@@ -4,6 +4,7 @@ import "./Cards.css"
 import { useSelector } from 'react-redux';
 import axios from 'axios'
 import Cookies  from 'js-cookie';
+import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 
 
 
@@ -13,7 +14,7 @@ export default function InfiniteList(props) {
   const { userInfo, error } = userSignin;
   let [cards,setCards] = useState([]);
   let [count,setCount] = useState(-2);
-  const numberperLoad = 10;
+  const numberperLoad = 8;
   const csrftokenCookie = Cookies.get('csrftoken');
 
 
@@ -64,7 +65,6 @@ export default function InfiniteList(props) {
         });
  
       } else if(props.link === '/search') {
-        console.log(props.querystr)
         l = l + '/';
         let formData = new FormData();
         formData.append('str', props.querystr);
@@ -79,7 +79,8 @@ export default function InfiniteList(props) {
           console.log(error);
         });
       } else if (props.link === '/category/'){
-        l = props.link + props.categoryID
+        console.log(props.categoryID)
+        l = props.link + props.categoryID + '/'
         axios.get(l,{
           headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie}
         }).then( (response) => {
@@ -99,7 +100,7 @@ export default function InfiniteList(props) {
           setCards([...a])
         })
       }
-  },[])
+  },[props.querystr,props.categoryID])
 
   useEffect(() => {
     const list = document.getElementById('list')
@@ -107,18 +108,18 @@ export default function InfiniteList(props) {
       // list has fixed height
       list.addEventListener('scroll', (e) => {
         const el = e.target;
-        // if(el.scrollTop + el.clientHeight === el.scrollHeight) {
-        //   setLoadMore(true);
-        //   console.log(loadMore)
-        // }
+        if(el.scrollTop + el.clientHeight === el.scrollHeight) {
+          setLoadMore(true);
+          console.log(loadMore)
+        }
       });  
     } else {  
       // list has auto height  
       window.addEventListener('scroll', () => {
         
-        // if (window.scrollY + window.innerHeight + 1 >=  list.offsetTop) {
-        //   setLoadMore(true);
-        // }
+        if (window.scrollY + window.innerHeight + 1 >=  list.clientHeight + list.offsetTop) {
+          setLoadMore(true);
+        }
       });
     }
   }, []);
@@ -167,13 +168,21 @@ export default function InfiniteList(props) {
   return (
     // <div className='container-fluid'>
     //   <div id='list' className='card-columns'>
-    <div className='container'>
-      <div className='row' data-masonry={{"percentPosition": true }} id='list'>
-      { console.log('props state',props.state)}
+    // <div className='container' id='list'>
+    //   <div className='row' data-masonry={{"percentPosition": true }} id='list'>
+    <div id = 'list'>
+    {console.log(props.categoryID)}
+    <ResponsiveMasonry
+                columnsCountBreakPoints={{350: 1, 750: 2, 900: 4}}
+            >
+                <Masonry>
+                { console.log('props state',props.state)}
       { console.log('cards',cards) }
       { typeof cards[0] !== "undefined" && cards.map((article) => <Cards key={article.id} article={article} />) }
-      </div>
+                </Masonry>
+    </ResponsiveMasonry>
     </div>
+    // </div>
     //   </div>
     // </div>
     

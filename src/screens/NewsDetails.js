@@ -92,6 +92,7 @@ export default function NewsDetails (props){
                 </div>
                 <div className='box-comment pt-0 mb-2 pl-0'>
                     {
+                        // console.log(comments.results)
                         comments.results ? comments.results.map((comment) => (
                             <div className='comment-item d-flex mb-2'>
                                 <div className='avatar pt-1'><Avatar name={comment.user} size="40" round={true}/></div>

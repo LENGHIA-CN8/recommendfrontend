@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BsFillPersonDashFill, BsSearch } from "react-icons/bs";
+import {  BsSearch } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { withRouter} from 'react-router-dom';
 import "./BottomNav.css";
@@ -8,48 +8,6 @@ function BottomNav(props) {
   const [isopen, setopenSearch] = useState(false);
   const [idlist,setIdlist] = useState([]);
   const [querystring,setqueryString] = useState();
-    const testarr = {
-        "count": 7,
-        "next": null,
-        "previous": null,
-        "results": [
-            {
-                "categoryID": 2017,
-                "category": "thể thao",
-                "level": 0
-            },
-            {
-                "categoryID": 2019,
-                "category": "kinh doanh",
-                "level": 0
-            },
-            {
-                "categoryID": 2021,
-                "category": "vnexpress",
-                "level": 0
-            },
-            {
-                "categoryID": 2029,
-                "category": "du lịch",
-                "level": 0
-            },
-            {
-                "categoryID": 2044,
-                "category": "số hóa",
-                "level": 0
-            },
-            {
-                "categoryID": 2053,
-                "category": "giải trí",
-                "level": 0
-            },
-            {
-                "categoryID": 2062,
-                "category": "sức khỏe",
-                "level": 0
-            }
-        ]
-    }
   const openSearch = (e) => {
     e.preventDefault();
     if (isopen) {
@@ -67,17 +25,14 @@ function BottomNav(props) {
     // console.log(props.history)
     props.history.push('/search?query=' + querystring)
   }
-  useEffect( async () => {
-    // const { data }  = await Axios.get('/category/get_top_level_category/');
-    // console.log(data)
-    // setIdlist([...data.results])
-    // console.log(test)
-    setIdlist([...testarr.results])
+  useEffect(  async () => {
+    const { data }  = await Axios.get('/category/get_top_level_category/');
+    setIdlist([...data.results])
   },[])
   return (
     <div>
       {console.log(idlist)}
-      <nav className="navbar py-1 px-1 mb-3 bottom-header bg-info list-unstyled ">
+      <nav className="navbar py-1 px-1 mb-1 bottom-header bg-info list-unstyled ">
         <ul className='navbar-nav d-flex flex-row '>
         <NavLink exact to="/" className="Nav float-left text-decoration-none" activeClassName="nav-active">
           <li className="px-2 py-2 border-white ">TIN CỦA BẠN</li>
