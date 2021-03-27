@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios'
 import Cookies  from 'js-cookie';
 import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+import Loading from './Loading'
 
 
 
@@ -171,16 +172,19 @@ export default function InfiniteList(props) {
     // <div className='container' id='list'>
     //   <div className='row' data-masonry={{"percentPosition": true }} id='list'>
     <div id = 'list'>
-    {console.log(props.categoryID)}
-    <ResponsiveMasonry
+      
+      
+    { cards.length > 0 ? <ResponsiveMasonry
                 columnsCountBreakPoints={{350: 1, 750: 2, 900: 4}}
             >
                 <Masonry>
       { console.log('props state',props.state)}
       { console.log('cards',cards) }
+      { console.log(userInfo.userID)}
       { typeof cards[0] !== "undefined" && cards.map((article) => <Cards key={article.id} article={article} />) }
                 </Masonry>
-    </ResponsiveMasonry>
+    </ResponsiveMasonry> : <Loading></Loading>}
+
     </div>
     // </div>
     //   </div>

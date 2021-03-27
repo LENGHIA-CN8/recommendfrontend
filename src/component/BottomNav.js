@@ -37,29 +37,41 @@ function BottomNav(props) {
         <NavLink exact to="/" className="Nav float-left text-decoration-none" activeClassName="nav-active">
           <li className="px-2 py-2 border-white ">TIN CỦA BẠN</li>
         </NavLink>
-        <NavLink className="text-decoration-none"
+        <NavLink 
           exact
           to="/hot_article"
-          className="Nav float-left"
+          className="Nav float-left text-decoration-none"
           activeClassName="nav-active"
         >
           <li className="px-2 py-2 border-white ">NÓNG</li>
         </NavLink>
-        <NavLink className="text-decoration-none"
+        <NavLink 
           exact
           to="/new_article"
           className="Nav float-left"
-          activeClassName="nav-active"
+          activeClassName="nav-active text-decoration-none"
         >
           <li className="px-2 py-2 border-white ">MỚI</li>
         </NavLink>
+        
+        <NavLink 
+          exact
+          to="#"
+          className="Nav float-left text-decoration-none drop"
+        >
+        <li className="px-2 py-2 border-white ">CHUYÊN MỤC<i class="fa fa-caret-down ml-1"></i></li>
+        <div class="dropdown-content">
         {
           idlist.map((item => 
           <NavLink exact to = {`/category/${item.categoryID}`} className="text-decoration-none">
-            <button type='button' className='button_id btn btn-info mx-1 d-none d-md-block' value={item.categoryID} ><small> #{item.category} </small></button>
+            <div type='button' className='button_id btn-info mx-1 d-md-block text-left pl-2 py-2 category' value={item.categoryID} ><small> {item.category} </small></div>
           </NavLink> ))
           
         }
+        </div>
+        </NavLink>
+        
+
         </ul>
         <div className='float-right'>
           <form class="form-inline float-right">

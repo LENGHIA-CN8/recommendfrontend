@@ -16,11 +16,13 @@ export default function NewsDetails (props){
     const articleID = props.match.params.id;
     const [content,setContent] = useState({});
     const [commentcontent,setComment] = useState();
+    const [date,setDate] = useState();
     let { comments } = commentlists;
     let { success } = commentsCreate;
     useEffect( async () => {
         const { data }  = await Axios.get(`/articles/${articleID}`);
         setContent(data)
+        setDate(new Date(data.time*1000))
       },[])
     useEffect(() =>{
         if(success){
@@ -57,6 +59,7 @@ export default function NewsDetails (props){
         {/* {console.log(content)} */}
         <section className='topdetail mb-2 bg-light'>
         <div className='container-details bg-light'>
+        { date ?  <small><div className='timestamp float-right ' style={{color:'gray'}}>{ date.toGMTString()}</div></small> : null }
            <div className ='sidebar-1 '>
             <h1 className='title-detail'>{content.title}</h1>
             <p className='description'>{content.sapo}</p>

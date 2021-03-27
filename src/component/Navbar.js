@@ -12,11 +12,11 @@ export default function Navbar(props) {
   
   useEffect(() =>{
     if(currentTime.getHours() >= 0 && currentTime.getHours() <= 12) {
-      setStatus('Chào buổi sáng')
+      setStatus('Buổi sáng tốt lành')
     } else if (currentTime.getHours() >= 13 && currentTime.getHours() <= 18) {
-      setStatus('Chào buồi chiều')
+      setStatus('Chào buổi chiều')
     } else {
-      setStatus('Chào buồi tối')
+      setStatus('Chào buổi tối')
     }
     var timerID = setInterval( () => tick(), 1000 );
     // return function cleanup() {
@@ -36,8 +36,8 @@ export default function Navbar(props) {
         <Link to="/" class="navbar-brand">Hệ thống gợi ý tin tức cá nhân hoá PNRec</Link>
         <ul class="nav navbar-nav navbar-right flex-row">
         { userInfo ? (
-          <div className = "login pl-2 d-flex flex-column">
-          <Link to="/profile" className='font-weight-bold text-decoration-none style = {{font-size: "100px"}}'><small> {status } {userInfo.username} </small></Link>
+          <div className = "login pl-2 mt-1 d-flex flex-column">
+          <p className='h6 mb-0'><small><Link to="/profile" className='font-weight-normal text-decoration-none ' style={{fontSize :'10 px'}}>{status } {userInfo.username}  </Link></small></p>
           <Link to="#signout" onClick={signoutHandler} style = {{color : "red"}} className='text-decoration-none'>
             <small>Thoát</small>  
           </Link>
