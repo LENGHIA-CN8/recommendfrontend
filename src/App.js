@@ -35,8 +35,8 @@ export default function App() {
       <Route path="/signin" component={SigninScreen}></Route>
       <Route path="/signup" component={SignupScreen}></Route>
       <Route path="/post/:id" component={NewsDetails}></Route>
-      <Route path="/category/favorite" component={CategoryChoose}></Route>
-      <Route path="/category/:id" component={ArticleCategory}></Route>
+      <Route exact path="/favorite_category" component={CategoryChoose}></Route>
+      <Route exact path="/category/:id" component={ArticleCategory}></Route>
 
     </div>
     </BrowserRouter>

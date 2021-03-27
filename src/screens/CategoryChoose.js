@@ -69,7 +69,6 @@ export default function CategoryChoose(props) {
   return (
     <div className="signup-form" >    
     <form className="form" >
-        { console.log(userInfo) }
         { console.log(typeof(object_category.category)) }
         <h4>
           Bạn quan tâm về ?

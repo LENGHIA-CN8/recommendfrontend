@@ -42,7 +42,7 @@ export default function InfiniteList(props) {
       console.log(l)
       if (props.link === '/' && userInfo) {
         let formData = new FormData();
-        formData.append('id',userInfo.id)
+        formData.append('id',userInfo.userID)
         console.log('inside personel')
         l = l + 'get_personal_article/'
         axios.post(l,formData, {
@@ -180,7 +180,6 @@ export default function InfiniteList(props) {
                 <Masonry>
       { console.log('props state',props.state)}
       { console.log('cards',cards) }
-      { console.log(userInfo.userID)}
       { typeof cards[0] !== "undefined" && cards.map((article) => <Cards key={article.id} article={article} />) }
                 </Masonry>
     </ResponsiveMasonry> : <Loading></Loading>}

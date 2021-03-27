@@ -11,6 +11,7 @@ import CSRFToken from '../component/CSRFToken';
 export default function SigninScreen(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [noti,setNoti] = useState(false);
   let redirect = ''
 
   
@@ -30,7 +31,7 @@ export default function SigninScreen(props) {
     if(userInfo.status == 1 ){
       redirect = '/'
     } else {
-      redirect = '/category/favorite'
+      redirect = '/favorite_category'
     }
       props.history.push(redirect);
     }
@@ -51,7 +52,10 @@ export default function SigninScreen(props) {
             <a href="#" className="forgot-link">Quên mật khẩu?</a>
         </div> 
         <input type="submit" className="button btn-primary btn-block btn-lg " value="Đăng nhập" />              
-    </form>			
+    </form>
+    {
+      
+    }			
     <div className="text-center small">Chưa có tài khoản? <Link to='signup'>Đăng kí</Link></div>
 </div>
   );
