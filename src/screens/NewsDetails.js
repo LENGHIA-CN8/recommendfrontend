@@ -13,7 +13,7 @@ export default function NewsDetails (props){
     const commentsCreate = useSelector((state) => state.commentsCreate)
     const userSignin = useSelector((state) => state.userSignin);
     const { userInfo } = userSignin;
-    const articleID = props.match.params.id;
+    const [articleID,setID] = useState(props.match.params.id);
     const [content,setContent] = useState({});
     const [commentcontent,setComment] = useState();
     const [date,setDate] = useState();
@@ -26,7 +26,6 @@ export default function NewsDetails (props){
       },[])
     useEffect(() =>{
         if(success){
-            // dispatch(getComment({}));
             dispatch(getComment(articleID))
             dispatch({type:'COMMENT_CREATE_RESET'})
         }
@@ -40,7 +39,7 @@ export default function NewsDetails (props){
         e.preventDefault();
         if(userInfo){
             dispatch(createComment({
-                CommentID: 2,
+                CommentID: 3,
                 articleID,
                 userId: userInfo.userID,
                 content: commentcontent,
@@ -56,7 +55,7 @@ export default function NewsDetails (props){
 
     <div>
     <div className='detail bg-light'>
-        {/* {console.log(content)} */}
+        {console.log(articleID)}
         <section className='topdetail mb-2 bg-light'>
         <div className='container-details bg-light'>
         { date ?  <small><div className='timestamp float-right ' style={{color:'gray'}}>{ date.toGMTString()}</div></small> : null }

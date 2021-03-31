@@ -10,7 +10,6 @@ export default function HomeScreen (props){
     const { userInfo, error } = userSignin;
     return (
         <div className='Home'>
-            {console.log(props.location)}
             {userInfo ? <InfiniteList link={props.location.pathname} state ={state} setState={setState}></InfiniteList> : <NotificationScreen></NotificationScreen>}
         </div>
     )

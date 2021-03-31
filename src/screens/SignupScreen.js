@@ -33,16 +33,13 @@ export default function SignupScreen(props) {
     } else {
       dispatch(register(name, email, password));
     }
-    // props.history.push(redirect);
+  }
+
+  useEffect(() =>{
     if (success) {
       props.history.push(redirect);
-    }
-  };
-
-  // useEffect(() =>{
-  //   alert(
-  //   "Your password can’t be too similar to your other personal information. Your password must contain at least 8 characters. Your password can’t be a commonly used password.Your password can’t be entirely numeric.")
-  // },[])
+    }  
+  },[success])
   return (
     <div className="signup-form">
       <form className="form" onSubmit={submitHandler}>

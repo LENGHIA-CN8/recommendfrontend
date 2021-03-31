@@ -111,13 +111,11 @@ export default function InfiniteList(props) {
         const el = e.target;
         if(el.scrollTop + el.clientHeight === el.scrollHeight) {
           setLoadMore(true);
-          console.log(loadMore)
         }
       });  
     } else {  
       // list has auto height  
-      window.addEventListener('scroll', () => {
-        
+      window.addEventListener('scroll', () => {  
         if (window.scrollY + window.innerHeight + 1 >=  list.clientHeight + list.offsetTop) {
           setLoadMore(true);
         }
