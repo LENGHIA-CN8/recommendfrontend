@@ -104,6 +104,9 @@ img {
 strong.right {
     float: right;
 }
+video {
+    display:none;
+}
 /* .tplCaption{
     display:none;
 } */

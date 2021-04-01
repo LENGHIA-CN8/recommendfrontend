@@ -14,7 +14,7 @@ export default function InfiniteList(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, error } = userSignin;
   let [cards,setCards] = useState([]);
-  let [count,setCount] = useState(-2);
+  let [count,setCount] = useState(0);
   const numberperLoad = 8;
   const csrftokenCookie = Cookies.get('csrftoken');
 
@@ -86,7 +86,7 @@ export default function InfiniteList(props) {
           headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie}
         }).then( (response) => {
           console.log(response.data.articleID)
-          props.setState([...props.state, ...response.data.articleID]);
+          props.setState([...response.data.articleID]);
           let arr1 = response.data.articleID.slice(0,numberperLoad)
           getarticlefromID(arr1).then((response) => setCards([...response]))
         }).catch(function (error) {
@@ -116,7 +116,7 @@ export default function InfiniteList(props) {
     } else {  
       // list has auto height  
       window.addEventListener('scroll', () => {  
-        if (window.scrollY + window.innerHeight + 1 >=  list.clientHeight + list.offsetTop) {
+        if (window.scrollY + window.innerHeight + 1 >  list.clientHeight + list.offsetTop) {
           setLoadMore(true);
         }
       });
@@ -127,12 +127,11 @@ export default function InfiniteList(props) {
 
   const getData = (load) => {
     if(cards.length < props.state.length ) {
-    setCount(++count)
-    console.log('count',count)
-    // if(cards.length >= props.state.length - 5 ){
-    //   console.log('loadmore');
-    //   HandleFetch();
-    // }
+      console.log(load);
+      if (load) {
+        setCount(++count)
+        console.log('count',count)
+      }
     if (cards.length + numberperLoad > props.state.length){
       let current = props.state.slice(cards.length,props.state.length+1)
       setCards([...cards,...current])
@@ -147,16 +146,19 @@ export default function InfiniteList(props) {
   };
   const getData1 = (load) => {
     if(cards.length < props.state.length ) {
-      setCount(++count)
-      console.log('count',count)
+      console.log(load);
+      if (load) {
+        setCount(++count)
+        console.log('count',count)
+      }
       if (cards.length + numberperLoad > props.state.length){
         let current = props.state.slice(cards.length,props.state.length+1)
         getarticlefromID(current).then((response) => setCards([...cards,...response]))
         // setCards([...cards,...current])
-      } else if (load) {
+      } else {
         let offset = count * numberperLoad;
         let current = props.state.slice(offset , offset+numberperLoad);
-        console.log('current',current)
+        console.log('current getting',current)
         getarticlefromID(current).then((response) => setCards([...cards,...response]))
         // setCards([...cards,...current])
       }

@@ -34,7 +34,9 @@ export default function App() {
       <Route path='/new_article' component={LatestNews}></Route>
       <Route path="/signin" component={SigninScreen}></Route>
       <Route path="/signup" component={SignupScreen}></Route>
-      <Route path="/post/:id" component={NewsDetails}></Route>
+      <Route exact path="/post/:id" render={(props) => (
+  <NewsDetails key={props.match.params.pageid} {...props} />)
+} ></Route>
       <Route exact path="/favorite_category" component={CategoryChoose}></Route>
       <Route exact path="/category/:id" component={ArticleCategory}></Route>
 

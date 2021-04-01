@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { BsPerson } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from '../actions/userActions';
+import Avatar from 'react-avatar'
 
 export default function Navbar(props) {
   const userSignin = useSelector((state) => state.userSignin);
@@ -36,12 +37,16 @@ export default function Navbar(props) {
         <Link to="/" class="navbar-brand">Hệ thống gợi ý tin tức cá nhân hoá PNRec</Link>
         <ul class="nav navbar-nav navbar-right flex-row">
         { userInfo ? (
-          <div className = "login pl-2 mt-1 d-flex flex-column">
-          <p className='h6 mb-0'><small><Link to="/profile" className='font-weight-normal text-decoration-none ' style={{fontSize :'10 px'}}>{status } {userInfo.username}  </Link></small></p>
+          <>
+          <div className = "login pl-2 mt-1 d-flex flex-column d-none d-md-block">
+          <p className='mb-0 d-none d-md-block'><Link to="/profile" className='font-weight-normal text-decoration-none text-info' style={{fontSize :'50 px'}}>{status} {userInfo.username}  </Link></p>
           <Link to="#signout" onClick={signoutHandler} style = {{color : "red"}} className='text-decoration-none'>
             <small>Thoát</small>  
           </Link>
-          </div> 
+          </div > 
+          <Avatar facebookId="100008343750912" name={userInfo.username} size="45" round={true} className='mt-md-1 ml-1 mb-1 pt-sm-1 pb-sm-1 pt-md-0 pb-md-1 px-0'/>
+          </>
+
         ) : (
           <li className='pl-2 py-2 my-2'>
           <Link to="/signin">
