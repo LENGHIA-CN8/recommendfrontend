@@ -52,10 +52,16 @@ export const signin = (email, password) => async (dispatch) => {
         })
     }
 }
-export const signout = () => (dispatch) => {
-    localStorage.removeItem('userInfo');
-    dispatch({ type: 'USER_SIGNOUT' });
-    document.location.href = '/';
+export const signout = (userid) => async (dispatch) => {
+  let formData = new FormData();
+  formData.append('userID',userid);
+  var csrftokenCookie = Cookies.get('csrftoken');
+  const { data }  = await Axios.post('/users_crawl/check_logout/', formData,{
+    headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie}
+  });
+  localStorage.removeItem('userInfo');
+  dispatch({ type: 'USER_SIGNOUT' });
+  document.location.href = '/';
   };
 export const register = (name, email, password) => async (dispatch) => {
     dispatch({ type: "USER_REGISTER_REQUEST", payload: { email, password } });

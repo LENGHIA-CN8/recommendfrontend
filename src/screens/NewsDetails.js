@@ -9,6 +9,8 @@ import { getComment,createComment} from '../actions/commentActions'
 import Footer from '../component/Footer';
 import Cookies  from 'js-cookie';
 import { Link } from 'react-router-dom';
+import CSRFToken from '../component/CSRFToken';
+
 
 
 export default function NewsDetails (props){
@@ -22,7 +24,7 @@ export default function NewsDetails (props){
     const [commentcontent,setComment] = useState();
     const [date,setDate] = useState();
     const [relatedNews,setRelated] = useState([]);
-    const csrftokenCookie = Cookies.get('csrftoken');
+    let csrftokenCookie = '';
 
 
     let { comments } = commentlists;
@@ -36,8 +38,20 @@ export default function NewsDetails (props){
         return arr
       }
     useEffect( async () => {
-        const { data }  = await Axios.get(`/articles/${props.match.params.id}`);
-        setContent(data)
+        let formData = new FormData();
+        formData.append('articleID',props.match.params.id)
+        if(userInfo){
+            formData.append('userID',userInfo.userID)
+        }
+
+        let data = '';
+        if(userInfo){       
+            data  = await Axios.get(`/articles/${props.match.params.id}/?userID=${userInfo.userID}`);
+        } else {
+            data  = await Axios.get(`/articles/${props.match.params.id}/`);
+        }
+        csrftokenCookie = Cookies.get('csrftoken');
+        setContent(data.data)
         setDate(new Date(data.time*1000))
         setID(props.match.params.id)
         window.scrollTo(0, 0);
@@ -51,15 +65,16 @@ export default function NewsDetails (props){
     ,[dispatch,success]);
     useEffect(() => {
         dispatch(getComment(articleID))
-    },[dispatch,articleID])
+    },[articleID])
     useEffect(() =>{
         let formData = new FormData();
+        csrftokenCookie = Cookies.get('csrftoken');
         formData.append('articleID',props.match.params.id)
         axios.post('/articles/get_related_articles_by_id/',formData, {
             headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken": csrftokenCookie }
            } ).then( (response) => {
             console.log(response.data);
-            let arr1 = response.data.articles.slice(1,6)
+            let arr1 = response.data.articleIDs.slice(1,6)
             getarticlefromID(arr1).then((response) => setRelated([...response]))  
           }).catch(function (error) {
             console.log(error);
@@ -70,6 +85,7 @@ export default function NewsDetails (props){
 
     const handleComment = (e) => {
         e.preventDefault();
+        csrftokenCookie = Cookies.get('csrftoken');
         if(userInfo){
             dispatch(createComment({
                 CommentID: 3,
@@ -78,7 +94,7 @@ export default function NewsDetails (props){
                 content: commentcontent,
                 time:12,
 
-            }))
+            },csrftokenCookie))
         } else {
             alert("Bạn phải đăng nhập để sử dụng tính năng này !!")
             // props.history.push('/signin')
@@ -89,6 +105,7 @@ export default function NewsDetails (props){
     <div>
     {console.log('related',relatedNews)}
     {console.log('related',props.match.params.id)}
+    {console.log('data',content)}
     <div className='detail bg-light'>
         <section className='topdetail mb-2 bg-light'>
         <div className='container-details bg-light'>
@@ -120,6 +137,7 @@ export default function NewsDetails (props){
                 </div>
                 <div className='input-comment w-100'>
                     <form >
+                    <CSRFToken />
                     <textarea type='text-area' className='form-control ' placeholder='Ý kiến của bạn' onChange={(e) => setComment(e.target.value)}/>
                     <button className='float-right mt-1 btn-info btn' onClick={(e) => handleComment(e)}>Gửi</button>
                     </form>

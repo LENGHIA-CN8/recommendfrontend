@@ -29,7 +29,7 @@ export default function Navbar(props) {
      }
   const dispatch = useDispatch();
   const signoutHandler = () => {
-    dispatch(signout());
+    dispatch(signout(userInfo.userID));
   };
   return (
     <div>
@@ -38,13 +38,15 @@ export default function Navbar(props) {
         <ul class="nav navbar-nav navbar-right flex-row">
         { userInfo ? (
           <>
-          <div className = "login pl-2 mt-1 d-flex flex-column d-none d-md-block">
+          <div className = "login pl-2 mt-3 d-flex flex-column d-none d-md-block">
           <p className='mb-0 d-none d-md-block'><Link to="/profile" className='font-weight-normal text-decoration-none text-info' style={{fontSize :'50 px'}}>{status} {userInfo.username}  </Link></p>
-          <Link to="#signout" onClick={signoutHandler} style = {{color : "red"}} className='text-decoration-none'>
-            <small>Thoát</small>  
-          </Link>
           </div > 
-          <Avatar facebookId="100008343750912" name={userInfo.username} size="45" round={true} className='mt-md-1 ml-1 mb-1 pt-sm-1 pb-sm-1 pt-md-0 pb-md-1 px-0'/>
+          <div className='drop'>
+          <Link to="/profile" className='text-decoration-none text-info' ><Avatar facebookId="100008343750912" name={userInfo.username} size="45" round={true} className='mt-md-1 ml-1 mb-1 pt-sm-1 pb-sm-1 pt-md-0 pb-md-1 px-0'/></Link>
+          <Link to="#signout" onClick={signoutHandler} style = {{right : "0"}} className='text-secondary text-decoration-none dropdown-content bg-light mr-1 py-1 pl-2 text-left'>
+            <small>Đăng Xuất</small>  
+          </Link>
+          </div>
           </>
 
         ) : (

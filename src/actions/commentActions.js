@@ -2,7 +2,7 @@ import Axios from 'axios';
 import Cookies  from 'js-cookie';
 
 const csrftokenCookie = Cookies.get('csrftoken');
-export const createComment = (comment) => async (dispatch,getState) => {
+export const createComment = (comment,token) => async (dispatch,getState) => {
 
     const {
         userSignin: { userInfo },
@@ -17,7 +17,7 @@ export const createComment = (comment) => async (dispatch,getState) => {
         formData.append('time',comment.time);
 
         const {data} = await Axios.post(`/user_comment/post_comment/`,formData, {
-            headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie }
+            headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":token }
     })
         dispatch({ type: 'COMMENT_CREATE_SUCCESS', payload: data });
 
@@ -27,6 +27,7 @@ export const createComment = (comment) => async (dispatch,getState) => {
 }
 export const getComment = (articleID) => async(dispatch) => {
     let formData = new FormData();
+    const csrftokenCookie = Cookies.get('csrftoken');
     formData.append('articleID',articleID);
 
     try {
