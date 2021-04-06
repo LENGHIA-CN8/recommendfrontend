@@ -15,6 +15,7 @@ export default function InfiniteList(props) {
   const { userInfo, error } = userSignin;
   let [cards,setCards] = useState([]);
   let [count,setCount] = useState(0);
+  let [reload,setReload] = useState(1);
   const numberperLoad = 8;
   const csrftokenCookie = Cookies.get('csrftoken');
 
@@ -29,12 +30,16 @@ export default function InfiniteList(props) {
   }
 
   useEffect(() => {
-    if ((props.link === '/' && userInfo) || (props.link === '/category/')){
+    if ((props.link === '/' && userInfo) || (props.link === '/category/') || (props.link === '/search')){
       getData1(loadMore)
     } else {
       getData(loadMore);
     }
     setLoadMore(false);
+    if(cards.length === props.state.length && cards.length > 0 && reload){
+      setReload(0)
+      alert('Bạn đã kéo hết tin xin mời load lại')
+    }
   }, [loadMore]);
 
   useEffect(() => {
@@ -73,7 +78,7 @@ export default function InfiniteList(props) {
           headers: {  "Content-Type": "multipart/form-data", "X-CSRFToken":csrftokenCookie}
         }).then( (response) => {
           // console.log(response.data.articleID)
-          props.setState([...props.state, ...response.data.articleID]);
+          props.setState([...response.data.articleID]);
           let arr1 = response.data.articleID.slice(0,numberperLoad)
           getarticlefromID(arr1).then((response) => setCards([...response]))
         }).catch(function (error) {
@@ -116,7 +121,7 @@ export default function InfiniteList(props) {
     } else {  
       // list has auto height  
       window.addEventListener('scroll', () => {  
-        if (window.scrollY + window.innerHeight + 1 >  list.clientHeight + list.offsetTop) {
+        if (window.scrollY + window.innerHeight + 1 >=  list.clientHeight + list.offsetTop) {
           setLoadMore(true);
         }
       });
